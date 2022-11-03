@@ -4,6 +4,11 @@ import { RequireAuth } from './components/auth/RequireAuth'
 import { Login } from './components/views/Login/Login'
 import { Register } from './components/views/Register/Register'
 
+import { Navbar } from './components/Navbar/Navbar'
+import { Footer } from './components/Footer/Footer'
+import { MovieCard } from './components/MovieCard/MovieCard'
+import { Main } from './components/views/Main/Main'
+
 export const App = () => {
   return (
     <AuthProvider>
@@ -12,12 +17,16 @@ export const App = () => {
           path='/'
           element={
             <RequireAuth>
-              <h1>Hola mundo</h1>
+              <Navbar />
+              <MovieCard />
+              <Footer />
             </RequireAuth>
           }
         />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/main' element={<Main />} />
+        <Route path='/movie/:id' element={<MovieCard />} />
       </Routes>
     </AuthProvider>
   )
