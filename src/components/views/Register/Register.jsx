@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuth } from '../../auth/auth'
 import {
@@ -172,7 +173,7 @@ export const Register = () => {
         </FormControl>
         <Stack as='article' direction={['row']}>
           <Text>¿Ya estás registrado?</Text>
-          <Link color='blue.500' href='/login'>
+          <Link as={RouterLink} color='blue.500' to='/login'>
             Login
           </Link>
         </Stack>

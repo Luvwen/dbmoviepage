@@ -1,9 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-
+import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../../auth/auth'
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Stack,
+  Text
+} from '@chakra-ui/react'
+
+import backgroundImage from '../../../assets/purple-background.jpg'
 
 export const Login = () => {
   const auth = useAuth()
@@ -51,40 +63,67 @@ export const Login = () => {
     })
 
   return (
-    <div className='login-screen'>
-      <h1 className='login-screen__title'>Accede a tu cuenta</h1>
-      <form className='login-form' onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            name='email'
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder='username@example.com'
-          />
-          {errors.email && touched.email && <div>{errors.email}</div>}
-        </div>
-        <div>
-          <label htmlFor='password'>Contraseña</label>
-          <input
-            type='password'
-            name='password'
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.password && touched.password && <div>{errors.password}</div>}
-        </div>
-        <button type='submit'>Login</button>
-      </form>
-      <article className='login-container'>
-        <p>¿Todavía no estas registrado?</p>
-        <Link className='register-button' to='/register'>
-          Registro
-        </Link>
-      </article>
-    </div>
+    <Box width='100wv' height='100vh' backgroundImage={backgroundImage}>
+      <Stack
+        as='section'
+        maxWidth={['80vw']}
+        m={['0 auto']}
+        alignItems='center'
+        color='white'
+        spacing={5}
+        pt={['100px']}
+      >
+        <Heading fontSize={['2xl']} mb={['20px']}>
+          Accede a tu cuenta
+        </Heading>
+        <FormControl onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <Stack>
+              <FormLabel htmlFor='email'>Email</FormLabel>
+              <Input
+                type='email'
+                name='email'
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder='username@example.com'
+              />
+              {errors.email && touched.email && (
+                <Text color='red'>{errors.email}</Text>
+              )}
+            </Stack>
+            <Stack>
+              <FormLabel htmlFor='password'>Contraseña</FormLabel>
+              <Input
+                type='password'
+                name='password'
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.password && touched.password && (
+                <Text color='red'>{errors.password}</Text>
+              )}
+            </Stack>
+          </Stack>
+          <Stack alignItems='center' mt='25px'>
+            <Button
+              onClick={handleSubmit}
+              colorScheme='teal'
+              type='submit'
+              width='100%'
+            >
+              Login
+            </Button>
+          </Stack>
+        </FormControl>
+        <Stack as='article' direction={['row']}>
+          <Text>¿Todavía no estas registrado?</Text>
+          <Link color='blue.500' as={RouterLink} to='/register'>
+            Registro
+          </Link>
+        </Stack>
+      </Stack>
+    </Box>
   )
 }
