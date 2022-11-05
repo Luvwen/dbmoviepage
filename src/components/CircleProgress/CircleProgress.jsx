@@ -1,14 +1,14 @@
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 import React from 'react'
 
-export const CircleProgress = ({ vote }) => {
+export const CircleProgress = ({ vote, top, left }) => {
   return (
     <>
       <CircularProgress
         position={['relative']}
         value={vote}
-        top={['-25']}
-        left={['3']}
+        top={top}
+        left={left}
         color={vote > 75 ? 'blue.500' : 'yellow.400'}
       >
         <CircularProgressLabel

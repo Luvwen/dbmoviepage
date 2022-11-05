@@ -12,14 +12,13 @@ import { Main } from './components/views/Main/Main'
 export const App = () => {
   return (
     <AuthProvider>
+      <Navbar />
       <Routes>
         <Route
           path='/'
           element={
             <RequireAuth>
-              <Navbar />
-              <MovieCard />
-              <Footer />
+              <h1>Lista de Favoritos</h1>
             </RequireAuth>
           }
         />
@@ -28,6 +27,7 @@ export const App = () => {
         <Route path='/main' element={<Main />} />
         <Route path='/movie/:id' element={<MovieCard />} />
       </Routes>
+      <Footer />
     </AuthProvider>
   )
 }

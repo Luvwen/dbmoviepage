@@ -6,6 +6,7 @@ import { MovieData } from './MovieData/MovieData'
 import { MovieSelect } from './MovieSelect/MovieSelect'
 
 import { CircleProgress } from '../CircleProgress/CircleProgress'
+import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 export const MovieCard = () => {
   const { id } = useParams()
@@ -23,61 +24,106 @@ export const MovieCard = () => {
   const ageCertification =
     data?.release_dates?.results[0]?.release_dates[0]?.certification
 
-  console.log(data)
   return (
-    <section className='wrapper-movie-card'>
+    <Box as='section' mt='64px' className='wrapper-movie-card'>
       <MovieSelect />
-      <div className='movie-card'>
-        <div
-          className='movie-image'
-          style={{ backgroundImage: `url(${pictureUrl})` }}
-        >
-          <div className='background-gradient'></div>
-          <img
-            src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
-            alt='poster'
-          />
-        </div>
-        <div className='movie-info'>
-          <h1>
+      <Stack bg='#200C0C' color='white'>
+        <Stack as='article' height='auto'>
+          <Box position='relative' height='calc(100vw / 2.222222)'>
+            <Box
+              position='absolute'
+              top='0'
+              left='0'
+              width='100%'
+              height='100%'
+              backgroundImage='linear-gradient(to right, rgba(31.5, 10.5, 10.5, 1) 20%, rgba(31.5, 10.5, 10.5, 0) 50%)'
+            />
+            <Image
+              src={`${pictureUrl}`}
+              width='100%'
+              minWidth='100%'
+              height='100%'
+              backgroundSize='cover'
+              backgroundRepeat='no-repeat'
+              backgroundPosition='calc((((100vw / 2.222222) - 20px) / 1.5) / 2) 0'
+              pl='45px'
+            ></Image>
+            <Image
+              src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+              alt='poster'
+              width='calc(((100vw / 2.222222) - 40px) / 1.5)'
+              minwidth='calc(((100vw / 2.222222) - 40px) / 1.5)'
+              height='calc((100vw / 2.222222) - 40px)'
+              minHeight='calc((100vw / 2.222222) - 40px)'
+              position='absolute'
+              top='5'
+              left='5'
+              borderRadius='5px'
+            />
+          </Box>
+        </Stack>
+        <Stack as='article'>
+          <Heading
+            as='h1'
+            fontSize={['xl']}
+            textAlign={['center']}
+            mt={['5px']}
+          >
             {data?.title} ({newDate})
-          </h1>
-          <div>
+          </Heading>
+          <Stack
+            direction={['row']}
+            alignItems={['center']}
+            justifyContent={['center']}
+            pt='10px'
+          >
             <CircleProgress vote={data?.vote_average.toFixed(1) * 10} />
-            <p>Puntuación del usuario</p>
-          </div>
-        </div>
-        <div className='movie-rate'>
-          <div className='movie-rate__duration'>
-            <p className='movie-age'>
+            <Text>Puntuación del usuario</Text>
+          </Stack>
+        </Stack>
+        <Stack bg='rgba(0,0,0,0.1)'>
+          <Stack direction='row' justifyContent='center'>
+            <Text>
               {ageCertification === '' ? 'No data ' : ageCertification}
-            </p>
-            <p>
-              <span></span> {data?.runtime} min
-            </p>
-          </div>
-          <p className='movie-rate__category'>
+            </Text>
+            <Text>- {data?.runtime} min</Text>
+          </Stack>
+          <Text textAlign='center'>
             {data?.genres[0]?.name}, {data?.genres[1]?.name}
-          </p>
-        </div>
-        <article className='movie-description'>
-          <p className='movie-description__intro'>{data?.tagline}</p>
-          <p className='movie-description__title'>General view</p>
-          <p className='movie-description__description'>{data?.overview}</p>
-          {data?.credits?.crew
-            ?.filter((employee) => employee.job === 'Director')
-            .map((director, i) => (
-              <p key={i} className='movie-description__author'>
-                {director.name}
-              </p>
-            ))}
-          <p className='movie-description__creator'>Director</p>
-        </article>
-      </div>
-      <article className='movie-carrousel'>
-        <h2>Movie cast</h2>
+          </Text>
+        </Stack>
+        <Stack as='article' p={['10px 20px']}>
+          <Text fontStyle='italic' color='whiteAlpha.600'>
+            {data?.tagline}
+          </Text>
+          <Heading as='h3' fontSize='lg'>
+            General view
+          </Heading>
+          <Text fontSize='md'>{data?.overview}</Text>
+          <Stack spacing={0}>
+            {data?.credits?.crew
+              ?.filter((employee) => employee.job === 'Director')
+              .map((director, i) => (
+                <Text fontWeight='bold' key={i}>
+                  {director.name}
+                </Text>
+              ))}
+            <Text>Director</Text>
+          </Stack>
+        </Stack>
+      </Stack>
+      <Stack
+        overflowX={['scroll']}
+        as='article'
+        className='movie-carrousel'
+        pb='15'
+        mt='15px'
+      >
+        <Heading fontSize={['2xl']} pl='15px'>
+          Movie cast
+        </Heading>
         <MovieCastCarrousel data={data} />
-      </article>
+      </Stack>
       <h3 className='casting-link'>Reparto y equipo completo (Link)</h3>
       <h3 className='actual-season'>Temporada actual (Link)</h3>
       {/* <article className='season-card'>
@@ -166,6 +212,6 @@ export const MovieCard = () => {
           })}
         </div>
       </div>
-    </section>
+    </Box>
   )
 }

@@ -76,7 +76,11 @@ export const Card = (data) => {
             alt=''
             onClick={(e) => console.log(e.target)}
           />
-          <CircleProgress vote={data.data.vote_average.toFixed(1) * 10} />
+          <CircleProgress
+            vote={data.data.vote_average.toFixed(1) * 10}
+            top={'-25'}
+            left={'3'}
+          />
         </Link>
       </Stack>
       <Heading
