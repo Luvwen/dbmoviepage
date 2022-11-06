@@ -28,7 +28,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "format": "npx prettier -w ./",
-        "check": "npx prettier -c ./"
+        "check": "npx prettier -c ./",
+        "prepare": "husky install"
     },
     "eslintConfig": {
         "extends": [
@@ -55,6 +56,11 @@
         "eslint-plugin-n": "^15.5.0",
         "eslint-plugin-promise": "^6.1.1",
         "eslint-plugin-react": "^7.31.10",
+        "husky": "^8.0.1",
+        "lint-staged": "^13.0.3",
         "prettier": "^2.7.1"
+    },
+    "lint-staged": {
+        "*./": "prettier -c"
     }
 }
