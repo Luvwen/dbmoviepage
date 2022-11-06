@@ -4,8 +4,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // Define a service using a base URL and expected endpoints
 // TODO: Create an .env folder to store the api key from here and the one in firebase.js file
 
-const ENDPOINT = process.env.REACT_APP_ENDPOINT
-const API_KEY = process.env.REACT_APP_API_KEY_TMDB
+const ENDPOINT = import.meta.env.VITE_ENDPOINT
+const API_KEY = import.meta.env.VITE_API_KEY_TMDB
 
 // Here are the different endpoints and their respective methods.
 export const moviesApi = createApi({
