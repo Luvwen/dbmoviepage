@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import debounce from 'lodash.debounce'
 import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
 import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
 
@@ -12,15 +11,22 @@ export const Search = () => {
 
     console.log(moviesBySearchWord)
 
-    const handleInput = debounce((e) => {
-        if (e.target.value.length > 2) {
-            setQuery(e.target.value)
-        }
-    }, 1000)
+    // const handleInput = debounce((e) => {
+    //     if (e.target.value.length > 2) {
+    //         setQuery(e.target.value)
+    //     }
+    // }, 1000)
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    // }
+
+    //TODO: Refactor comented code
+
+    const handleInput = () => {}
+
+    const handleSubmit = () => {}
+
     return (
         <Stack
             as={FormControl}
