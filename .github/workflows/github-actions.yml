@@ -7,4 +7,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Run Prittier
-            - run: npm run prettier -c ./
+              run: npm run prettier -c ./
