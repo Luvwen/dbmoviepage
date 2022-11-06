@@ -1,8 +1,7 @@
+import React, { useEffect, useState } from 'react'
 import { HamburgerIcon, Icon, SearchIcon, StarIcon } from '@chakra-ui/icons'
 import { Box, Image, Link, List, ListItem, Stack } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
 import { Link as NavLink } from 'react-router-dom'
-
 import movieImage from '../../assets/movie-image.png'
 
 // const links = ['Movies', 'TV Shows', 'People', 'More']
@@ -31,7 +30,6 @@ export const Navbar = () => {
                 height={['64px']}
                 direction={['row']}
                 justifyContent={['space-between']}
-                ss
                 alignItems={['center']}
                 bg="purple.600"
                 top={visible ? '0' : '-64'}
