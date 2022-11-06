@@ -30,18 +30,6 @@ Hello there! Mi nombre es Santiago Baliño y esta es mi aplicación de una pági
 
 ## Uso / Instalación
 
-Clonar el proyecto
-
-```bash
-  git clone https://github.com/Luvwen/dbmoviepage.git
-```
-
-Ir a la carpeta del proyecto
-
-```bash
-  cd my-project
-```
-
 Instalar dependencias
 
 ```bash
@@ -53,3 +41,19 @@ Inicializar el servidor
 ```bash
   npm run start
 ```
+### **TODO:**
+- [ ] Migrate components to [Chakra UI](https://chakra-ui.com/).
+- [ ] Add linter and prittier files.
+- [ ] Add husky.
+- [ ] Migrate to TS.
+- [ ] Fix routes.
+- [ ] Fix Register name and age.
+- [ ] Add functionality hamburguer menu.
+- [ ] Fix favorite code and add it's unique page.
+- [ ] Add search bar in nav.
+- [ ] Fix search bar in dashboard.
+- [ ] Create logout button.
+- [ ] Create Footer.
+- [ ] Create theme file for Chakra.
+- [ ] Add links to the CardMovie and MovieSelect.
+- [ ] Add support to desktop.
