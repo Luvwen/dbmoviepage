@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCqAMbzOsOMPi8hjSzbjO1ZHqXHi1G0Ceo',
-  authDomain: 'alkemy-movie.firebaseapp.com',
-  projectId: 'alkemy-movie',
-  storageBucket: 'alkemy-movie.appspot.com',
-  messagingSenderId: '392493493209',
-  appId: '1:392493493209:web:abda1dbee2679db0ba47c8'
+  apiKey: process.env.REACT_APP_API_KEY_FIREBASE,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN_FIREBASE,
+  projectId: process.env.REACT_APP_PROJECT_ID_FIREBASE,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET_FIREBASE,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID_FIREBASE,
+  appId: process.env.REACT_APP_APP_ID_FIREBASE
 }
 
 // Initialize Firebase
