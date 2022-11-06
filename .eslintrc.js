@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: ['plugin:react/recommended', 'standard'],
+    extends: ['plugin:react/recommended'],
     overrides: [],
     parserOptions: {
         ecmaVersion: 'latest',
@@ -13,7 +13,7 @@ module.exports = {
     rules: {
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
-        indent: ['error', 4],
+        indent: 'off',
         'comma-dangle': 'off',
         'space-before-function-paren': 'off',
     },
