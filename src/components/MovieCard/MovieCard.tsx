@@ -1,13 +1,75 @@
-import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetMovieByIdQuery } from '../../services/moviesData'
-import { MovieCastCarrousel } from './MovieCastCarrousel/MovieCastCarrousel'
-import { MovieData } from './MovieData/MovieData'
+import {
+    Actor,
+    MovieCastCarrousel,
+} from './MovieCastCarrousel/MovieCastCarrousel'
 import { MovieSelect } from './MovieSelect/MovieSelect'
-
 import { CircleProgress } from '../CircleProgress/CircleProgress'
-import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
+import {
+    Box,
+    Divider,
+    Heading,
+    Image,
+    Link,
+    Stack,
+    Text,
+} from '@chakra-ui/react'
+import { MovieData } from './MovieData/MovieData'
+
+interface Employee {
+    job: string
+}
+
+interface Director {
+    name: string
+}
+
+interface Keyword {
+    id: number
+    name: string
+}
+
+export interface MovieInfo {
+    title: 'string'
+    status: 'string'
+    original_language: 'en' | 'ja' | 'es'
+}
+
+export interface DataApi {
+    data: {
+        adult: boolean
+        backdrop_path: string
+        belongs_to_collection: null
+        budget: number
+        credits: { cast: Array<Actor> }
+        external_ids: Array<string>
+        genres: Array<string>
+        homepage: string
+        id: number
+        imdb_id: string
+        keywords: Array<string>
+        original_language: string
+        original_title: string
+        overview: string
+        popularity: number
+        poster_path: string
+        production_companies: Array<string>
+        production_countries: Array<string>
+        release_date: string
+        release_dates: Array<string>
+        revenue: number
+        runtime: number
+        spoken_languages: Array<string>
+        status: string
+        tagline: string
+        title: string
+        video: boolean | string
+        vote_average: number
+        vote_count: number
+    }
+}
 export const MovieCard = () => {
     const { id } = useParams()
 
@@ -26,6 +88,12 @@ export const MovieCard = () => {
 
     const ageCertification =
         data?.release_dates?.results[0]?.release_dates[0]?.certification
+
+    const movieInfo: MovieInfo = {
+        title: data?.title,
+        status: data?.status,
+        original_language: data?.original_language,
+    }
 
     return (
         <Box as="section" mt="64px" className="wrapper-movie-card">
@@ -55,7 +123,7 @@ export const MovieCard = () => {
                             src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                             alt="poster"
                             width="calc(((100vw / 2.222222) - 40px) / 1.5)"
-                            minwidth="calc(((100vw / 2.222222) - 40px) / 1.5)"
+                            minWidth="calc(((100vw / 2.222222) - 40px) / 1.5)"
                             height="calc((100vw / 2.222222) - 40px)"
                             minHeight="calc((100vw / 2.222222) - 40px)"
                             position="absolute"
@@ -109,12 +177,20 @@ export const MovieCard = () => {
                     <Text fontSize="md">{data?.overview}</Text>
                     <Stack spacing={0}>
                         {data?.credits?.crew
-                            ?.filter((employee) => employee.job === 'Director')
-                            .map((director, i) => (
-                                <Text fontWeight="bold" key={i}>
-                                    {director.name}
-                                </Text>
-                            ))}
+                            ?.filter(
+                                (employee: Employee): boolean =>
+                                    employee.job === 'Director'
+                            )
+                            .map(
+                                (
+                                    director: Director,
+                                    i: number
+                                ): JSX.Element => (
+                                    <Text fontWeight="bold" key={i}>
+                                        {director.name}
+                                    </Text>
+                                )
+                            )}
                         <Text>Director</Text>
                     </Stack>
                 </Stack>
@@ -126,14 +202,29 @@ export const MovieCard = () => {
                 pb="15"
                 mt="15px"
             >
-                <Heading fontSize={['2xl']} pl="15px">
+                <Heading fontSize={['xl']} pl="15px">
                     Movie cast
                 </Heading>
                 <MovieCastCarrousel data={data} />
             </Stack>
-            <h3 className="casting-link">Reparto y equipo completo (Link)</h3>
-            <h3 className="actual-season">Temporada actual (Link)</h3>
-            {/* <article className='season-card'>
+            <Heading
+                pl={['15px']}
+                fontSize={['xl']}
+                as="h3"
+                className="casting-link"
+            >
+                Reparto y equipo completo (Link)
+            </Heading>
+            <Divider
+                height={['1px']}
+                mt={['15px']}
+                bg="gray.200"
+                width={['100%']}
+            />
+            {/* <Heading as="h3" className="actual-season">
+                Temporada actual (Link)
+            </Heading>
+            <article className='season-card'>
         <div>
           <h2>Temporada 24</h2>
           <h5>2022 | 8 episodios</h5>
@@ -144,9 +235,15 @@ export const MovieCard = () => {
         </div>
       </article>
       <h3 className='all-seasons'>Ver todas las temporadas (Link)</h3> */}
-            <div className="social-networks">
+            <Stack
+                as="article"
+                direction={['row']}
+                spacing={['3']}
+                pl={['15px']}
+                mt={['15px']}
+            >
                 {data?.external_ids?.facebook_id !== null && (
-                    <a
+                    <Link
                         href={
                             data?.external_ids?.facebook_id !== null
                                 ? `https://www.facebook.com/${data?.external_ids?.facebook_id}`
@@ -155,14 +252,16 @@ export const MovieCard = () => {
                         rel="noreferrer"
                         target="_blank"
                     >
-                        <img
+                        <Image
                             src="https://www.themoviedb.org/assets/2/v4/glyphicons/social/facebook-71155d1cd369c47ce8456477833a92c324fa01e6d628cb6ece19cedea3c1c480.svg"
+                            width={['35px']}
+                            height={['35px']}
                             alt="facebook"
                         />
-                    </a>
+                    </Link>
                 )}
                 {data?.external_ids?.twitter_id !== null && (
-                    <a
+                    <Link
                         href={
                             data?.external_ids?.twitter_id !== null
                                 ? `https://www.twitter.com/${data?.external_ids?.twitter_id}`
@@ -171,14 +270,16 @@ export const MovieCard = () => {
                         rel="noreferrer"
                         target="_blank"
                     >
-                        <img
+                        <Image
                             src="https://www.themoviedb.org/assets/2/v4/glyphicons/social/twitter-a6ff8c172b8e086f4a64578cee0a16676c1a067b47a1b1b186d58795d241a852.svg"
+                            width={['35px']}
+                            height={['35px']}
                             alt="twitter"
                         />
-                    </a>
+                    </Link>
                 )}
                 {data?.external_ids?.instagram_id !== null && (
-                    <a
+                    <Link
                         href={
                             data?.external_ids?.instagram_id !== null
                                 ? `https://www.instagram.com/${data?.external_ids?.instagram_id}`
@@ -187,14 +288,16 @@ export const MovieCard = () => {
                         rel="noreferrer"
                         target="_blank"
                     >
-                        <img
+                        <Image
                             src="https://www.themoviedb.org/assets/2/v4/glyphicons/social/instagram-74e6299c864adc384258da3b3a8eb09282b7ccda4dd1dfa9a4158ba2ea8583b9.svg"
+                            width={['35px']}
+                            height={['35px']}
                             alt="instagram"
                         />
-                    </a>
+                    </Link>
                 )}
                 {data?.external_ids?.imdb_id !== null && (
-                    <a
+                    <Link
                         href={
                             data?.external_ids?.imdb_id !== null
                                 ? `https://www.imdb.com/title/${data?.external_ids?.imdb_id}/`
@@ -203,22 +306,44 @@ export const MovieCard = () => {
                         rel="noreferrer"
                         target="_blank"
                     >
-                        <img
+                        <Image
                             src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-351-link-5f643a86c2515cb06ea08ebc798941824f76bbcea4ed571222a81f271b30c7f3.svg"
+                            width={['35px']}
+                            height={['35px']}
                             alt="imdb"
                         />
-                    </a>
+                    </Link>
                 )}
-            </div>
-            <MovieData data={data} />
-            <div className="movie-tags">
-                <h3>Palabras clave</h3>
-                <div>
-                    {data?.keywords?.keywords?.map((keyword, i) => {
-                        return <p key={i}>{keyword.name}</p>
-                    })}
-                </div>
-            </div>
+            </Stack>
+            <MovieData movieInfo={movieInfo} />
+            <Stack as="article" pl="15px" mt="25px" width="100vw">
+                <Heading as="h3" fontSize="lg">
+                    Palabras clave
+                </Heading>
+                <Stack
+                    spacing={['0']}
+                    direction={['row']}
+                    maxWidth={['100%']}
+                    wrap={['wrap']}
+                    gap={['10px']}
+                >
+                    {data?.keywords?.keywords?.map(
+                        (keyword: Keyword, i: number): JSX.Element => {
+                            return (
+                                <Text
+                                    fontSize={['sm']}
+                                    borderRadius={['5px']}
+                                    p={['6px 8px']}
+                                    bg="gray.300"
+                                    key={i}
+                                >
+                                    {keyword.name}
+                                </Text>
+                            )
+                        }
+                    )}
+                </Stack>
+            </Stack>
         </Box>
     )
 }

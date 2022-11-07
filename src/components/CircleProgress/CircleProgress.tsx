@@ -1,7 +1,12 @@
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
-import React from 'react'
 
-export const CircleProgress = ({ vote, top, left }) => {
+interface Props {
+    vote: number
+    top?: string
+    left?: string
+}
+
+export const CircleProgress: React.FC<Props> = ({ vote, top, left }) => {
     return (
         <>
             <CircularProgress
