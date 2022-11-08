@@ -1,15 +1,30 @@
-import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { Heading, Image, Link, Stack, Text } from '@chakra-ui/react'
+import { DataApi } from '../MovieCard'
 
-export const MovieCastCarrousel = ({ data }) => {
+export interface Actor {
+    adult: boolean
+    cast_id: number
+    character: string
+    credit_id: string
+    gender: number
+    id: number
+    known_for_department: string
+    name: string
+    order: number
+    original_name: string
+    popularity: number
+    profile_path: string
+}
+
+export const MovieCastCarrousel = ({ data }: DataApi) => {
     return (
         <Stack
             className="carrousel"
             direction={['row']}
             pl="15px"
             pb="15px"
-            maxHeight="300px"
+            maxHeight="250px"
             spacing={['4']}
             overflowX={['scroll']}
         >
@@ -38,15 +53,14 @@ export const MovieCastCarrousel = ({ data }) => {
                                 alt="actor profile"
                                 width="100%"
                                 height="100%"
+                                borderRadius="5px 5px 0 0"
                             ></Image>
                         </Link>
-                        <Stack spacing={['1']}>
-                            <Heading fontSize="md" ml="10px" mt="5px">
+                        <Stack spacing={['1']} p="5px">
+                            <Heading fontSize="md">
                                 {actor?.original_name}
                             </Heading>
-                            <Text pl="10px" fontSize="sm">
-                                {actor?.character}
-                            </Text>
+                            <Text fontSize="sm">{actor?.character}</Text>
                         </Stack>
                     </Stack>
                 )
