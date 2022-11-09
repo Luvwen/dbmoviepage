@@ -1,6 +1,10 @@
 import { Heading, Stack } from '@chakra-ui/react'
 
-export const Modal = ({ fav }) => {
+interface ModalProps {
+    fav: string
+}
+
+export const Modal: React.FC<ModalProps> = ({ fav }) => {
     return (
         <Stack
             position="absolute"

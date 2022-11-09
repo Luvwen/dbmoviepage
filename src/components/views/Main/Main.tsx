@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Card } from '../../Card/Card'
 import { Search } from '../../Search/Search'
 import {
@@ -16,6 +16,26 @@ import {
     Stack,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+
+export interface Movie {
+    adult: boolean
+    backdrop_path: string
+    first_air_date?: string
+    genre_ids: number[]
+    id: number
+    media_type: string
+    name?: string
+    original_language: string
+    original_title: string
+    overview: string
+    popularity: number
+    poster_path: string
+    release_date: string
+    title?: string
+    video: boolean
+    vote_average: number
+    vote_count: number
+}
 
 export const Main = () => {
     const [trendingFilter, setTrendingFilter] = useState('day')
@@ -76,7 +96,7 @@ export const Main = () => {
                     overflowY={['hidden']}
                     maxHeight={['370px']}
                 >
-                    {moviesByFilter?.map((movie) => (
+                    {moviesByFilter?.map((movie: Movie) => (
                         <Card key={movie.id} data={movie} />
                     ))}
                 </Stack>
@@ -124,7 +144,7 @@ export const Main = () => {
                 overflowY={['hidden']}
                 maxHeight={['370px']}
             >
-                {moviesByTrend?.map((movie) => (
+                {moviesByTrend?.map((movie: Movie) => (
                     <Card key={movie.id} data={movie} />
                 ))}
             </Stack>

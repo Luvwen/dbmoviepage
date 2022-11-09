@@ -1,9 +1,14 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from './auth'
 
-export const RequireAuth = ({ children }) => {
+interface RequireAuthProps {
+    children: JSX.Element
+}
+
+export const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
     const auth = useAuth()
-    if (!auth.user) {
+    console.log(auth)
+    if (!auth?.user) {
         return <Navigate to="/login" replace={true} />
     }
     return children

@@ -1,12 +1,11 @@
-import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { Link as RouterLink } from 'react-router-dom'
+
 import { useAuth } from '../../auth/auth'
 import {
     Box,
     Button,
-    FormControl,
     FormLabel,
     Heading,
     Input,
@@ -17,10 +16,15 @@ import {
 
 import backgroundImage from '../../../assets/purple-background.jpg'
 
-export const Login = () => {
+interface FormValues {
+    email: string
+    password: string
+}
+
+export const Login: React.FC = () => {
     const auth = useAuth()
 
-    const initialValues = {
+    const initialValues: FormValues = {
         email: '',
         password: '',
     }
@@ -52,9 +56,8 @@ export const Login = () => {
     const onSubmit = () => {
         const email = values.email
         const password = values.password
-        auth.loginWithEmailAndPassword(email, password)
+        auth?.loginWithEmailAndPassword(email, password)
     }
-
     const { handleChange, handleSubmit, errors, values, touched, handleBlur } =
         useFormik({
             initialValues,
@@ -76,13 +79,14 @@ export const Login = () => {
                 <Heading fontSize={['2xl']} mb={['20px']}>
                     Accede a tu cuenta
                 </Heading>
-                <FormControl onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <Stack spacing={3}>
                         <Stack>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <Input
                                 type="email"
                                 name="email"
+                                id="email"
                                 value={values.email}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -97,6 +101,7 @@ export const Login = () => {
                             <Input
                                 type="password"
                                 name="password"
+                                id="password"
                                 value={values.password}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -107,16 +112,11 @@ export const Login = () => {
                         </Stack>
                     </Stack>
                     <Stack alignItems="center" mt="25px">
-                        <Button
-                            onClick={handleSubmit}
-                            colorScheme="teal"
-                            type="submit"
-                            width="100%"
-                        >
+                        <Button colorScheme="teal" type="submit" width="100%">
                             Login
                         </Button>
                     </Stack>
-                </FormControl>
+                </form>
                 <Stack as="article" direction={['row']}>
                     <Text>¿Todavía no estas registrado?</Text>
                     <Link color="blue.500" as={RouterLink} to="/register">

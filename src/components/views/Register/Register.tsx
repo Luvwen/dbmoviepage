@@ -1,7 +1,6 @@
-import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuth } from '../../auth/auth'
 import {
@@ -17,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 
 import backgroundImage from '../../../assets/purple-background.jpg'
+
 export const Register = () => {
     const auth = useAuth()
     const initialValues = {
@@ -76,7 +76,7 @@ export const Register = () => {
         const email = values.email
         const password = values.password
 
-        auth.registerWithEmailAndPassword(email, password)
+        auth?.registerWithEmailAndPassword(email, password)
     }
 
     const { handleSubmit, handleChange, values, errors, touched, handleBlur } =
@@ -98,7 +98,7 @@ export const Register = () => {
                 <Heading fontSize={['xl']} mt={['50px']} color="white">
                     Crear una cuenta
                 </Heading>
-                <FormControl onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <Stack spacing={['2']}>
                         <Stack mt={['10px']}>
                             <FormLabel htmlFor="username">Nombre *</FormLabel>
@@ -180,13 +180,12 @@ export const Register = () => {
                             margin="25px auto 0"
                             colorScheme={'teal'}
                             type="submit"
-                            onClick={handleSubmit}
                             width="100%"
                         >
                             Crear cuenta
                         </Button>
                     </Stack>
-                </FormControl>
+                </form>
                 <Stack as="article" direction={['row']}>
                     <Text>¿Ya estás registrado?</Text>
                     <Link as={RouterLink} color="blue.500" to="/login">
