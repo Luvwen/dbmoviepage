@@ -51,7 +51,7 @@ export const Main = () => {
 
     return (
         <>
-            <Box as="section">
+            <Box as="section" mt="64px" pt="10px">
                 <Search />
                 <Stack direction={['row']} m={['35px 0 -15px 15px']}>
                     <Heading as="h3" mr="10px">
