@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CircleProgress } from '../CircleProgress/CircleProgress'
 import { Modal } from '../Modal/Modal'
 import { Link } from 'react-router-dom'
@@ -7,12 +7,33 @@ import { Stack, Heading, Text, Image } from '@chakra-ui/react'
 
 const PATHIMG = 'https://image.tmdb.org/t/p/w500/'
 
-export const Card = (data) => {
-    const { title, id, name } = data.data
+import { Movie } from '../views/Main/Main'
+
+interface CardProps {
+    data: Movie
+}
+
+interface MovieLike {
+    date: string
+    id: number
+    img: string
+    vote: number
+}
+
+interface MovieFav extends MovieLike {
+    date: string
+    id: number
+    img: string
+    title: string
+    vote: number
+}
+
+export const Card: React.FC<CardProps> = ({ data }) => {
+    const { title, id, name } = data
     const [fav, setFav] = useState('🖤')
     const [modal, setModal] = useState(false)
-    const img = PATHIMG + data.data.poster_path
-    const handleHeart = (e) => {
+    const img = PATHIMG + data?.poster_path
+    const handleHeart = () => {
         fav !== '❤️' ? setFav('❤️') : setFav('🖤')
         setModal(true)
         setTimeout(() => {
@@ -21,8 +42,8 @@ export const Card = (data) => {
 
         const favs = localStorage.getItem('favsMovieDb')
         const favsArray = favs ? JSON.parse(favs) : []
-        const date = data.data.releaseDate || data.data.first_air_date
-        const vote = data.data.vote_average
+        const date = data?.release_date || data?.first_air_date
+        const vote = data?.vote_average
         const newFav = {
             id,
             title,
@@ -32,13 +53,15 @@ export const Card = (data) => {
         }
         localStorage.setItem('favsMovieDb', JSON.stringify(newFav))
 
-        const isLike = favsArray.find((el) => el.id === id)
+        const isLike = favsArray.find((el: MovieFav) => el?.id === id)
         if (!isLike) {
             favsArray.push(newFav)
             localStorage.setItem('favsMovieDb', JSON.stringify(favsArray))
             setFav('❤️')
         } else {
-            const arrayFilter = favsArray.filter((el) => el.id !== id)
+            const arrayFilter = favsArray.filter(
+                (el: MovieFav) => el?.id !== id
+            )
             localStorage.setItem('favsMovieDb', JSON.stringify(arrayFilter))
             setFav('🖤')
         }
@@ -47,9 +70,9 @@ export const Card = (data) => {
     useEffect(() => {
         const fa = localStorage.getItem('favsMovieDb')
         const lista = fa ? JSON.parse(fa) : []
-        const like = lista.find((el) => parseInt(el.id) === data.data.id)
+        const like = lista.find((el: MovieLike) => el?.id === data?.id)
         like ? setFav('❤️') : setFav('🖤')
-    }, [data.data.id])
+    }, [data?.id])
 
     return (
         <Stack position="relative">
@@ -64,7 +87,7 @@ export const Card = (data) => {
                 {fav}
             </Text>
             <Stack maxHeight={['65%']}>
-                <Link to={`/movie/${data.data.id}`}>
+                <Link to={`/movie/${data?.id}`}>
                     {modal && <Modal fav={fav} />}
                     <Image
                         width={['100%']}
@@ -74,10 +97,9 @@ export const Card = (data) => {
                         borderRadius="10px"
                         src={img}
                         alt=""
-                        onClick={(e) => console.log(e.target)}
                     />
                     <CircleProgress
-                        vote={data.data.vote_average.toFixed(1) * 10}
+                        vote={parseInt(data?.vote_average.toFixed(1)) * 10}
                         top={'-25'}
                         left={'3'}
                     />
@@ -91,9 +113,7 @@ export const Card = (data) => {
                 {title || name}
             </Heading>
             {/* <Link to='/'>{title || name }</Link> */}
-            <Text pl="15px">
-                {data.data.release_date || data.data.first_air_date}
-            </Text>
+            <Text pl="15px">{data?.release_date || data?.first_air_date}</Text>
         </Stack>
     )
 }

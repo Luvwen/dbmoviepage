@@ -7,13 +7,24 @@ import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../firebase/firebase'
 
-const AuthContext = createContext(null)
+interface AuthContextProps {
+    user: string | null
+    registerWithEmailAndPassword: (email: string, password: string) => void
+    loginWithEmailAndPassword: (email: string, password: string) => void
+    logout: () => void
+}
 
-export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
+interface AuthProps {
+    children: JSX.Element
+}
+
+const AuthContext = createContext<AuthContextProps | null>(null)
+
+export const AuthProvider: React.FC<AuthProps> = ({ children }) => {
+    const [user, setUser] = useState<string | null>(null)
     const navigate = useNavigate()
 
-    const registerWithEmailAndPassword = (email, password) => {
+    const registerWithEmailAndPassword = (email: string, password: string) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
@@ -25,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             })
     }
 
-    const loginWithEmailAndPassword = (email, password) => {
+    const loginWithEmailAndPassword = (email: string, password: string) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user

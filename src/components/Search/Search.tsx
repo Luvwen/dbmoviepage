@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
 import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
 
@@ -8,8 +8,6 @@ export const Search = () => {
     // Get the data from the store
     const { data } = useGetMoviesBySearchWordQuery(query)
     const moviesBySearchWord = data?.results
-
-    console.log(moviesBySearchWord)
 
     // const handleInput = debounce((e) => {
     //     if (e.target.value.length > 2) {
