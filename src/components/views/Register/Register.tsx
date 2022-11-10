@@ -2,11 +2,9 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 
-import { useAuth } from '../../auth/auth'
 import {
     Box,
     Button,
-    FormControl,
     FormLabel,
     Heading,
     Input,
@@ -15,6 +13,7 @@ import {
     Text,
 } from '@chakra-ui/react'
 
+import { useAuth } from '@/components/auth'
 import backgroundImage from '../../../assets/purple-background.jpg'
 
 export const Register = () => {

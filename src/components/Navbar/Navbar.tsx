@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 import movieImage from '../../assets/movie-image.png'
 import backgroundImage from '../../assets/purple-background.jpg'
-import { useAuth } from '../auth/auth'
+import { useAuth } from '../auth'
 
 export const Navbar = () => {
     const [yOffset, setYOffset] = useState(window.pageYOffset)

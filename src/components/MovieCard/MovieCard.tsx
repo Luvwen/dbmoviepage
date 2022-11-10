@@ -1,11 +1,5 @@
 import { useParams } from 'react-router-dom'
 import { useGetMovieByIdQuery } from '../../services/moviesData'
-import {
-    Actor,
-    MovieCastCarrousel,
-} from './MovieCastCarrousel/MovieCastCarrousel'
-import { MovieSelect } from './MovieSelect/MovieSelect'
-import { CircleProgress } from '../CircleProgress/CircleProgress'
 
 import {
     Box,
@@ -16,7 +10,10 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react'
-import { MovieData } from './MovieData/MovieData'
+import { Actor, MovieCastCarrousel } from './MovieCastCarrousel'
+import { MovieSelect } from './MovieSelect'
+import { CircleProgress } from '../CircleProgress'
+import { MovieData } from './MovieData'
 
 interface Employee {
     job: string

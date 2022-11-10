@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { CircleProgress } from '../CircleProgress/CircleProgress'
-import { Modal } from '../Modal/Modal'
 import { Link } from 'react-router-dom'
-
 import { Stack, Heading, Text, Image } from '@chakra-ui/react'
 
-const PATHIMG = 'https://image.tmdb.org/t/p/w500/'
+import { Modal } from '../Modal'
+import { CircleProgress } from '../CircleProgress'
+import { Movie } from '../views/Main'
 
-import { Movie } from '../views/Main/Main'
+const PATHIMG = 'https://image.tmdb.org/t/p/w500/'
 
 interface CardProps {
     data: Movie

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
 import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
+import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
 
 export const Search = () => {
     const [query, setQuery] = useState('')
