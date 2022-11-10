@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Link as NavLink } from 'react-router-dom'
 import {
     CloseIcon,
@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/icons'
 import {
     Box,
-    calc,
     Image,
     Input,
     Link,
@@ -27,7 +26,7 @@ export const Navbar = () => {
     const [visible, setVisible] = useState(true)
     const [openMenu, setOpenMenu] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
-
+    const [searchInput, setSearchInput] = useState('')
     const auth = useAuth()
 
     useEffect(() => {
@@ -54,6 +53,15 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         auth?.logout()
+    }
+
+    const handleInputChange = (evt: FormEvent<HTMLInputElement>) => {
+        setSearchInput(evt.currentTarget.value)
+    }
+
+    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault()
+        setSearchInput('')
     }
 
     return (
@@ -177,8 +185,23 @@ export const Navbar = () => {
                 justifyContent="center"
             >
                 <Icon as={SearchIcon} />
-                <Input placeholder="Buscar" border="none" width="80%" />
-                <Icon as={CloseIcon} color="gray.400" fontSize="sm" />
+                <form style={{ width: '80%' }} onSubmit={handleSubmit}>
+                    <Input
+                        placeholder="Buscar"
+                        border="none"
+                        width="100%"
+                        value={searchInput}
+                        onChange={handleInputChange}
+                    />
+                </form>
+                <Icon
+                    as={CloseIcon}
+                    color="gray.400"
+                    fontSize="sm"
+                    onClick={() => {
+                        setSearchInput('')
+                    }}
+                />
             </Stack>
         </Box>
     )

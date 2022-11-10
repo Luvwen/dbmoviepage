@@ -4,10 +4,11 @@ Hello there! Mi nombre es Santiago Baliño y esta es mi aplicación de una pági
 
 ## 🛠 Tecnologías
 
--   HTML
--   Javascript
--   CSS
--   React(v18)
+-   Chakra UI
+-   Typescript
+-   React
+-   Redux
+-   Firebase
 
 ### Librerias
 
