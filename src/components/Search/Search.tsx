@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
 import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
+import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export const Search = () => {
     const [query, setQuery] = useState('')
@@ -9,19 +10,15 @@ export const Search = () => {
     const { data } = useGetMoviesBySearchWordQuery(query)
     const moviesBySearchWord = data?.results
 
-    // const handleInput = debounce((e) => {
-    //     if (e.target.value.length > 2) {
-    //         setQuery(e.target.value)
-    //     }
-    // }, 1000)
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    // }
-
-    //TODO: Refactor comented code
-
-    const handleInput = () => {}
+    const handleInput = useDebounce(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const inputValue = e.target.value
+            if (inputValue.length > 1) {
+                setQuery(inputValue)
+            }
+        },
+        500
+    )
 
     const handleSubmit = () => {}
 
