@@ -19,12 +19,13 @@ interface MovieLike {
     vote: number
 }
 
-interface MovieFav extends MovieLike {
+export interface MovieFav extends MovieLike {
     date: string
     id: number
     img: string
     title: string
     vote: number
+    overview: string
 }
 
 export const Card: React.FC<CardProps> = ({ data }) => {
@@ -43,12 +44,14 @@ export const Card: React.FC<CardProps> = ({ data }) => {
         const favsArray = favs ? JSON.parse(favs) : []
         const date = data?.release_date || data?.first_air_date
         const vote = data?.vote_average
+        const overview = data?.overview
         const newFav = {
             id,
             title,
             date,
             img,
             vote,
+            overview,
         }
         localStorage.setItem('favsMovieDb', JSON.stringify(newFav))
 
