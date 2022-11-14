@@ -1,20 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
 import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
 import { useDebounce } from '@/hooks/useDebounce'
+import { SearchDropdown } from './SearchDropDown'
+import { Movie } from '@/types'
 
 export const Search = () => {
     const [query, setQuery] = useState('')
+    const [moviesList, setMovieList] = useState<Movie[]>([])
 
     // Get the data from the store
-    const { data } = useGetMoviesBySearchWordQuery(query)
-    const moviesBySearchWord = data?.results
+    const { data, isFetching: isFetchingMovies } =
+        // skip: prevents from making unnecessary calls when there is no query
+        useGetMoviesBySearchWordQuery(query, { skip: !query })
+
+    const moviesBySearchWord: Movie[] = data?.results ?? []
+
+    useEffect(() => {
+        if (!isFetchingMovies) {
+            setMovieList(moviesBySearchWord)
+        }
+    }, [isFetchingMovies])
 
     const handleInput = useDebounce(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const inputValue = e.target.value
             if (inputValue.length > 1) {
-                setQuery(inputValue)
+                const parsedValue = inputValue.toLowerCase()
+                setQuery(parsedValue)
+            }
+            if (inputValue.length === 0) {
+                setQuery('')
+                setMovieList([])
             }
         },
         500
@@ -45,6 +62,13 @@ export const Search = () => {
                     outline: 'none !important',
                 }}
             />
+            {moviesList.length > 0 && (
+                <SearchDropdown
+                    movies={moviesList}
+                    isFetchingMovies={isFetchingMovies}
+                />
+            )}
+
             <Button
                 colorScheme="teal"
                 type="submit"
