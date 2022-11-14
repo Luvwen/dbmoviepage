@@ -29,8 +29,10 @@ export const Favorites: React.FC = () => {
 
     const handleRemoveFav = (favId: number) => {
         const favsWithoutFav = favorites.filter((fav) => {
+            console.log(favId, fav.id)
             fav.id !== favId
         })
+        localStorage.setItem('favsMovieDb', JSON.stringify(favsWithoutFav))
         setFavorites(favsWithoutFav)
     }
     return (
