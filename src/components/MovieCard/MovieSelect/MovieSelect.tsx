@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
     Button,
     Menu,
@@ -7,6 +6,7 @@ import {
     MenuList,
     Stack,
 } from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 export const MovieSelect = () => {
     return (

@@ -1,11 +1,11 @@
+import { createContext, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
-import { createContext, useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { auth } from '../../firebase/firebase'
+import { auth } from '@/firebase'
 
 interface AuthContextProps {
     user: string | null

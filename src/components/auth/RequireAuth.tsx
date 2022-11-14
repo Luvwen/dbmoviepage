@@ -7,7 +7,6 @@ interface RequireAuthProps {
 
 export const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
     const auth = useAuth()
-    console.log(auth)
     if (!auth?.user) {
         return <Navigate to="/login" replace={true} />
     }

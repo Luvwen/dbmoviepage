@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router-dom'
-import { AuthProvider } from './components/auth/auth'
-import { RequireAuth } from './components/auth/RequireAuth'
-import { Login } from './components/views/Login/Login'
-import { Register } from './components/views/Register/Register'
-
-import { Navbar } from './components/Navbar/Navbar'
-import { Footer } from './components/Footer/Footer'
-import { MovieCard } from './components/MovieCard/MovieCard'
-import { Main } from './components/views/Main/Main'
+import { AuthProvider, RequireAuth } from './components/auth'
+import { Favorites } from './components/Favorites'
+import { Footer } from './components/Footer'
+import { MovieCard } from './components/MovieCard'
+import { Navbar } from './components/Navbar'
+import { Login } from './components/views/Login'
+import { Main } from './components/views/Main'
+import { Register } from './components/views/Register'
+import { FavProvider } from './context/favContext'
 
 export const App = () => {
     return (
         <AuthProvider>
-            <>
+            <FavProvider>
                 <Navbar />
                 <Routes>
                     <Route
@@ -23,13 +23,14 @@ export const App = () => {
                             </RequireAuth>
                         }
                     />
+                    <Route path="/main" element={<Main />} />
+                    <Route path="/favorites" element={<Favorites />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/main" element={<Main />} />
                     <Route path="/movie/:id" element={<MovieCard />} />
                 </Routes>
                 <Footer />
-            </>
+            </FavProvider>
         </AuthProvider>
     )
 }

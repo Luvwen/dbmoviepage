@@ -1,10 +1,4 @@
 import { useState } from 'react'
-import { Card } from '../../Card/Card'
-import { Search } from '../../Search/Search'
-import {
-    useGetMoviesByFilterQuery,
-    useGetMoviesByTrendQuery,
-} from '../../../services/moviesData'
 import {
     Box,
     Button,
@@ -16,6 +10,12 @@ import {
     Stack,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import {
+    useGetMoviesByFilterQuery,
+    useGetMoviesByTrendQuery,
+} from '../../../services/moviesData'
+import { Card } from '@/components/Card'
+import { Search } from '@/components/Search'
 
 export interface Movie {
     adult: boolean
@@ -51,7 +51,7 @@ export const Main = () => {
 
     return (
         <>
-            <Box as="section">
+            <Box as="section" mt="64px" pt="10px">
                 <Search />
                 <Stack direction={['row']} m={['35px 0 -15px 15px']}>
                     <Heading as="h3" mr="10px">

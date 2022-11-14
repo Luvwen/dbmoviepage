@@ -2,7 +2,6 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 
-import { useAuth } from '../../auth/auth'
 import {
     Box,
     Button,
@@ -15,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 
 import backgroundImage from '../../../assets/purple-background.jpg'
+import { useAuth } from '@/components/auth'
 
 interface FormValues {
     email: string
@@ -70,6 +70,7 @@ export const Login: React.FC = () => {
             <Stack
                 as="section"
                 maxWidth={['80vw']}
+                height={['100vh']}
                 m={['0 auto']}
                 alignItems="center"
                 color="white"
@@ -79,7 +80,7 @@ export const Login: React.FC = () => {
                 <Heading fontSize={['2xl']} mb={['20px']}>
                     Accede a tu cuenta
                 </Heading>
-                <form onSubmit={handleSubmit}>
+                <form style={{ width: '100%' }} onSubmit={handleSubmit}>
                     <Stack spacing={3}>
                         <Stack>
                             <FormLabel htmlFor="email">Email</FormLabel>

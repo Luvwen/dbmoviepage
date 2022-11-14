@@ -1,14 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { HamburgerIcon, Icon, SearchIcon, StarIcon } from '@chakra-ui/icons'
-import { Box, Image, Link, List, ListItem, Stack } from '@chakra-ui/react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Link as NavLink } from 'react-router-dom'
+import {
+    CloseIcon,
+    HamburgerIcon,
+    Icon,
+    SearchIcon,
+    StarIcon,
+} from '@chakra-ui/icons'
+import {
+    Box,
+    Image,
+    Input,
+    Link,
+    List,
+    ListItem,
+    Stack,
+    UnorderedList,
+} from '@chakra-ui/react'
 import movieImage from '../../assets/movie-image.png'
-
-// const links = ['Movies', 'TV Shows', 'People', 'More']
+import backgroundImage from '../../assets/purple-background.jpg'
+import { useAuth } from '../auth'
 
 export const Navbar = () => {
     const [yOffset, setYOffset] = useState(window.pageYOffset)
     const [visible, setVisible] = useState(true)
+    const [openMenu, setOpenMenu] = useState(false)
+    const [openSearch, setOpenSearch] = useState(false)
+    const [searchInput, setSearchInput] = useState('')
+    const auth = useAuth()
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -23,6 +42,28 @@ export const Navbar = () => {
             setVisible(visible)
         }
     }
+
+    const handleOpenMenu = () => {
+        setOpenMenu(!openMenu)
+    }
+
+    const handleOpenSearchBar = () => {
+        setOpenSearch(!openSearch)
+    }
+
+    const handleLogout = () => {
+        auth?.logout()
+    }
+
+    const handleInputChange = (evt: FormEvent<HTMLInputElement>) => {
+        setSearchInput(evt.currentTarget.value)
+    }
+
+    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault()
+        setSearchInput('')
+    }
+
     return (
         <Box as="header">
             <Stack
@@ -37,14 +78,16 @@ export const Navbar = () => {
                 position="fixed"
                 width={['100vw']}
                 zIndex={['1000']}
+                spacing={0}
             >
                 <Icon
-                    as={HamburgerIcon}
-                    fontSize={['2xl']}
+                    as={openMenu ? CloseIcon : HamburgerIcon}
+                    fontSize={openMenu ? 'xl' : '2xl'}
                     minW={['20%', '5%']}
                     color="white"
+                    onClick={handleOpenMenu}
+                    zIndex="50"
                 ></Icon>
-
                 <Stack minW={['33%']}>
                     <Link as={NavLink} to="/main">
                         <Image
@@ -66,12 +109,99 @@ export const Navbar = () => {
                     pr="5px"
                 >
                     <ListItem>
-                        <Icon as={StarIcon} fontSize="lg" color="white" />
+                        <Link as={NavLink} to="/favorites">
+                            <Icon as={StarIcon} fontSize="lg" color="white" />
+                        </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={handleOpenSearchBar}>
                         <Icon as={SearchIcon} fontSize="lg" color="teal.400" />
                     </ListItem>
                 </Stack>
+            </Stack>
+            <Stack
+                width={'100%'}
+                height={'100%'}
+                position={['absolute']}
+                top={'0px'}
+                left={openMenu ? '0' : '-500'}
+                backgroundImage={backgroundImage}
+                transition="left 0.4s"
+                zIndex="1000"
+                color="white"
+                pt="15px"
+            >
+                <UnorderedList listStyleType="none" spacing={5}>
+                    <ListItem fontSize="xl">
+                        <Link
+                            as={NavLink}
+                            to="/main"
+                            onClick={() => setOpenMenu(!openMenu)}
+                        >
+                            Peliculas
+                        </Link>
+                    </ListItem>
+                    <ListItem fontSize="xl">
+                        <Link
+                            as={NavLink}
+                            to="/main"
+                            onClick={() => setOpenMenu(!openMenu)}
+                        >
+                            Series
+                        </Link>
+                    </ListItem>
+                    <ListItem fontSize="xl">
+                        <Link
+                            as={NavLink}
+                            to="/favorites"
+                            onClick={() => setOpenMenu(!openMenu)}
+                        >
+                            Favoritos
+                        </Link>
+                    </ListItem>
+                    <ListItem
+                        fontSize="xl"
+                        onClick={() => {
+                            handleLogout
+                            setOpenMenu(!openMenu)
+                        }}
+                    >
+                        <Link as={NavLink} to="/login">
+                            Cerrar sesión
+                        </Link>
+                    </ListItem>
+                </UnorderedList>
+            </Stack>
+            <Stack
+                width={'100%'}
+                height={'50px'}
+                position={['absolute']}
+                top={openSearch ? '0' : '-20'}
+                left={'0'}
+                transition="top 0.4s"
+                zIndex="900"
+                bg="white"
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+            >
+                <Icon as={SearchIcon} />
+                <form style={{ width: '80%' }} onSubmit={handleSubmit}>
+                    <Input
+                        placeholder="Buscar"
+                        border="none"
+                        width="100%"
+                        value={searchInput}
+                        onChange={handleInputChange}
+                    />
+                </form>
+                <Icon
+                    as={CloseIcon}
+                    color="gray.400"
+                    fontSize="sm"
+                    onClick={() => {
+                        setSearchInput('')
+                    }}
+                />
             </Stack>
         </Box>
     )

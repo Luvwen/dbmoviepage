@@ -2,11 +2,9 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 
-import { useAuth } from '../../auth/auth'
 import {
     Box,
     Button,
-    FormControl,
     FormLabel,
     Heading,
     Input,
@@ -15,6 +13,7 @@ import {
     Text,
 } from '@chakra-ui/react'
 
+import { useAuth } from '@/components/auth'
 import backgroundImage from '../../../assets/purple-background.jpg'
 
 export const Register = () => {
@@ -98,7 +97,7 @@ export const Register = () => {
                 <Heading fontSize={['xl']} mt={['50px']} color="white">
                     Crear una cuenta
                 </Heading>
-                <form onSubmit={handleSubmit}>
+                <form style={{ width: '100%' }} onSubmit={handleSubmit}>
                     <Stack spacing={['2']}>
                         <Stack mt={['10px']}>
                             <FormLabel htmlFor="username">Nombre *</FormLabel>
