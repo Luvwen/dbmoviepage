@@ -15,7 +15,7 @@ interface AuthContextProps {
 }
 
 interface AuthProps {
-    children: JSX.Element
+    children: JSX.Element[]
 }
 
 const AuthContext = createContext<AuthContextProps | null>(null)
