@@ -1,45 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, FunctionComponent } from 'react'
 import { Link as FavLink } from 'react-router-dom'
 import {
     Box,
     Button,
     Divider,
     Heading,
-    Icon,
     Image,
     Link,
     Stack,
     Text,
 } from '@chakra-ui/react'
 
-import { MovieFav } from '../Card'
 import { CircleProgress } from '../CircleProgress'
 import { StarIcon } from '@chakra-ui/icons'
+import { MovieFav } from '../Card'
 
-export const Favorites: React.FC = () => {
-    const [favorites, setFavorites] = useState<MovieFav[]>([])
+export const Favorites: FunctionComponent = () => {
+    const [favs, setFavs] = useState<MovieFav[]>([])
+
+    const handleRemoveFavs = (id: number) => {
+        let filterFavs = favs.filter((fav) => {
+            return fav.id !== id
+        })
+        localStorage.setItem('favsMovieDb', JSON.stringify(filterFavs))
+        setFavs(filterFavs)
+    }
 
     useEffect(() => {
-        const myFavorites = localStorage.getItem('favsMovieDb')
-
-        if (typeof myFavorites === 'string') {
-            setFavorites(JSON.parse(myFavorites))
-        }
+        const favoritesFromStorage = localStorage.getItem('favsMovieDb')
+        const favoritesParsed = favoritesFromStorage
+            ? JSON.parse(favoritesFromStorage)
+            : []
+        setFavs(favoritesParsed)
     }, [])
 
-    const handleRemoveFav = (favId: number) => {
-        const favsWithoutFav = favorites.filter((fav) => {
-            console.log(favId, fav.id)
-            fav.id !== favId
-        })
-        localStorage.setItem('favsMovieDb', JSON.stringify(favsWithoutFav))
-        setFavorites(favsWithoutFav)
-    }
     return (
         <Stack mt={['64px']} width={['100vw']} p={['25px 25px 0']}>
             <Heading>My favorites</Heading>
             <Stack margin={['0 auto']} pt={['15px']}>
-                {favorites.map((fav) => {
+                {favs?.map((fav) => {
                     return (
                         <Stack
                             key={fav.id}
@@ -105,7 +104,7 @@ export const Favorites: React.FC = () => {
                                         leftIcon={<StarIcon />}
                                         colorScheme="teal"
                                         borderRadius="none"
-                                        onClick={() => handleRemoveFav(fav.id)}
+                                        onClick={() => handleRemoveFavs(fav.id)}
                                     />
                                 </Stack>
                             </Stack>
