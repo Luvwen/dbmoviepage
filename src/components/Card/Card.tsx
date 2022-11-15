@@ -1,11 +1,12 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Stack, Heading, Text, Image } from '@chakra-ui/react'
 
 import { Modal } from '../Modal'
 import { CircleProgress } from '../CircleProgress'
 import { Movie } from '../views/Main'
-import { FavContext, FavContextProps } from '@/context/favContext'
+import { useAppDispatch } from '@/app/hooks'
+import { toggleFav } from '@/app/features/favorites/favoritesSlice'
 
 const PATHIMG = 'https://image.tmdb.org/t/p/w500/'
 
@@ -13,14 +14,7 @@ interface CardProps {
     data: Movie
 }
 
-interface MovieLike {
-    date: string | undefined
-    id: number
-    img: string
-    vote: number
-}
-
-export interface MovieFav extends MovieLike {
+export interface MovieFav {
     date: string | undefined
     id: number
     img: string
@@ -30,9 +24,10 @@ export interface MovieFav extends MovieLike {
 }
 
 export const Card: React.FC<CardProps> = ({ data }) => {
-    const { addToFavorites } = useContext(FavContext) as FavContextProps
     const [fav, setFav] = useState('🖤')
     const [modal, setModal] = useState(false)
+
+    const dispatch = useAppDispatch()
 
     const { title, id, name } = data
     const img = PATHIMG + data?.poster_path
@@ -47,6 +42,47 @@ export const Card: React.FC<CardProps> = ({ data }) => {
         vote,
         overview,
     }
+    const handleAddFavorite = () => {
+        setModal(true)
+        const favorites = localStorage.getItem('favsMovieDb')
+        const favoritesParse = favorites ? JSON.parse(favorites) : []
+
+        const isFavLiked = favoritesParse.find(
+            (fav: MovieFav) => fav?.id === id
+        )
+
+        if (!isFavLiked) {
+            favoritesParse.push(newFav)
+            localStorage.setItem('favsMovieDb', JSON.stringify(favoritesParse))
+            dispatch(toggleFav(newFav))
+
+            setFav('❤️')
+        } else {
+            const arrayFilter = favoritesParse.filter(
+                (fav: MovieFav) => fav?.id !== id
+            )
+            localStorage.setItem('favsMovieDb', JSON.stringify(arrayFilter))
+            dispatch(toggleFav(arrayFilter))
+            setFav('🖤')
+        }
+        setTimeout(() => {
+            setModal(false)
+        }, 1000)
+    }
+
+    useEffect(() => {
+        const favoritesFromStorage = localStorage.getItem('favsMovieDb')
+        const favoritesParsed = favoritesFromStorage
+            ? JSON.parse(favoritesFromStorage)
+            : []
+
+        const favFind = favoritesParsed?.find((fav: MovieFav) => {
+            return fav.id === data?.id
+        })
+        if (favFind !== undefined) {
+            favFind ? setFav('❤️') : setFav('🖤')
+        }
+    }, [])
 
     return (
         <Stack position="relative">
@@ -55,7 +91,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
                 position="relative"
                 top="10"
                 left="120"
-                onClick={() => addToFavorites(data?.id, data)}
+                onClick={() => handleAddFavorite()}
                 fontSize="20px"
             >
                 {fav}
@@ -79,11 +115,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
                     />
                 </Link>
             </Stack>
-            <Heading
-                fontSize={['md']}
-                pl="15px"
-                onClick={(e) => console.log(e.target)}
-            >
+            <Heading fontSize={['md']} pl="15px">
                 {title || name}
             </Heading>
             {/* <Link to='/'>{title || name }</Link> */}
