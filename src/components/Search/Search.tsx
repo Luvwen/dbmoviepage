@@ -8,6 +8,7 @@ import { Movie } from '@/types'
 export const Search = () => {
     const [query, setQuery] = useState('')
     const [moviesList, setMovieList] = useState<Movie[]>([])
+    const [showSearchDropdown, setShowSearchDropdown] = useState<boolean>(false)
 
     // Get the data from the store
     const { data, isFetching: isFetchingMovies } =
@@ -16,11 +17,12 @@ export const Search = () => {
 
     const moviesBySearchWord: Movie[] = data?.results ?? []
 
-    useEffect(() => {
-        if (!isFetchingMovies) {
-            setMovieList(moviesBySearchWord)
+    const handleEsckeyUp = (e: React.KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            setShowSearchDropdown(false)
+            setMovieList([])
         }
-    }, [isFetchingMovies])
+    }
 
     const handleInput = useDebounce(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,12 +34,20 @@ export const Search = () => {
             if (inputValue.length === 0) {
                 setQuery('')
                 setMovieList([])
+                setShowSearchDropdown(false)
             }
         },
         500
     )
 
     const handleSubmit = () => {}
+
+    useEffect(() => {
+        if (!isFetchingMovies) {
+            setMovieList(moviesBySearchWord)
+            setShowSearchDropdown(moviesBySearchWord.length > 0)
+        }
+    }, [isFetchingMovies])
 
     return (
         <Stack
@@ -49,6 +59,7 @@ export const Search = () => {
             ml="50px"
             mt="15px"
             onSubmit={handleSubmit}
+            onKeyUp={handleEsckeyUp}
         >
             <Input
                 type="text"
@@ -62,12 +73,12 @@ export const Search = () => {
                     outline: 'none !important',
                 }}
             />
-            {moviesList.length > 0 && (
-                <SearchDropdown
-                    movies={moviesList}
-                    isFetchingMovies={isFetchingMovies}
-                />
-            )}
+
+            <SearchDropdown
+                movies={moviesList}
+                show={showSearchDropdown}
+                handleOnKeyUp={handleEsckeyUp}
+            />
 
             <Button
                 colorScheme="teal"

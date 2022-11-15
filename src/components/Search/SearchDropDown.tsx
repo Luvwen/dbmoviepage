@@ -1,22 +1,30 @@
-import { FunctionComponent } from 'react'
-import { chakra, Text } from '@chakra-ui/react'
+import { FunctionComponent, useState } from 'react'
+import { chakra, Text, theme } from '@chakra-ui/react'
 import { Movie } from '@/types'
 
 interface SearchDropdownProps {
     movies: Movie[]
-    isFetchingMovies: boolean
+    show: boolean
+    handleOnKeyUp: (event: React.KeyboardEvent) => void
 }
 
 export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
     movies,
-    isFetchingMovies,
+    show,
+    handleOnKeyUp,
 }) => {
-    const shortenMovieList = movies?.slice(1, 10)
+    const shortenMovieList = (maxRange: number = 10) =>
+        movies?.slice(1, maxRange)
 
     return (
-        <Container role={'menu'} tabIndex={0}>
+        <Container
+            role={'menu'}
+            tabIndex={0}
+            display={show ? 'inline-block' : 'none'}
+            onKeyUp={handleOnKeyUp}
+        >
             {shortenMovieList &&
-                shortenMovieList.map((movie) => {
+                shortenMovieList().map((movie) => {
                     const movieTitle = movie.title
                     return (
                         movieTitle && (
@@ -36,18 +44,22 @@ export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
 }
 
 const Container = chakra('ul', {
+    shouldForwardProp: (prop) => !['show'].includes(prop),
     baseStyle: {
+        width: '80%',
+        maxWidth: '600px',
         position: 'absolute',
         backgroundColor: '#fff',
-        border: '2px solid #805ad5',
-        borderRadius: '0px 0px 25px 25px',
-        borderTop: 'none',
+        border: `2px solid ${theme.colors.gray[300]}`,
+        borderRadius: '10px',
         zIndex: 3,
-        width: '215px',
-        top: '40px',
-        left: '15px',
+        top: '45px',
+        left: '12px',
+        'li: first-of-type': {
+            borderRadius: '10px 10px 0 0',
+        },
         'li: last-child': {
-            borderRadius: '0px 0px 25px 25px',
+            borderRadius: '0px 0px 10px 10px',
         },
     },
 })
@@ -59,7 +71,7 @@ const MovieContainer = chakra('li', {
         justifyContent: 'space-between',
         padding: '9px',
         ':hover': {
-            backgroundColor: '#bababa',
+            backgroundColor: theme.colors.gray[100],
         },
     },
 })
