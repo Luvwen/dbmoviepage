@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react'
 import { chakra, Text, theme } from '@chakra-ui/react'
 import { Movie } from '@/types'
 
+// TODO: Make the dropdown close when click outside.
 interface SearchDropdownProps {
     movies: Movie[]
     show: boolean

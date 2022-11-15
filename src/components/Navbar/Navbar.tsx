@@ -65,7 +65,7 @@ export const Navbar = () => {
     }
 
     return (
-        <Box as="header" style={{ display: 'none' }}>
+        <Box as="header">
             <Stack
                 as="nav"
                 height={['64px']}
