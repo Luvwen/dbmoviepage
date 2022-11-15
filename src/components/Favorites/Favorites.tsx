@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FunctionComponent } from 'react'
 import { Link as FavLink } from 'react-router-dom'
 import {
     Box,
@@ -15,7 +15,7 @@ import { CircleProgress } from '../CircleProgress'
 import { StarIcon } from '@chakra-ui/icons'
 import { MovieFav } from '../Card'
 
-export const Favorites: React.FC = () => {
+export const Favorites: FunctionComponent = () => {
     const [favs, setFavs] = useState<MovieFav[]>([])
 
     const handleRemoveFavs = (id: number) => {
