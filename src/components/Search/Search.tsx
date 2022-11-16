@@ -1,29 +1,53 @@
-import { useState } from 'react'
-import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useGetMoviesBySearchWordQuery } from '../../services/moviesData'
+import { Button, FormControl, Input, Stack } from '@chakra-ui/react'
+import { useDebounce } from '@/hooks/useDebounce'
+import { SearchDropdown } from './SearchDropDown'
+import { Movie } from '@/types'
 
 export const Search = () => {
     const [query, setQuery] = useState('')
+    const [moviesList, setMovieList] = useState<Movie[]>([])
+    const [showSearchDropdown, setShowSearchDropdown] = useState<boolean>(false)
 
     // Get the data from the store
-    const { data } = useGetMoviesBySearchWordQuery(query)
-    const moviesBySearchWord = data?.results
+    const { data, isFetching: isFetchingMovies } =
+        // skip: prevents from making unnecessary calls when there is no query
+        useGetMoviesBySearchWordQuery(query, { skip: !query })
 
-    // const handleInput = debounce((e) => {
-    //     if (e.target.value.length > 2) {
-    //         setQuery(e.target.value)
-    //     }
-    // }, 1000)
+    const moviesBySearchWord: Movie[] = data?.results ?? []
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    // }
+    const handleEsckeyUp = (evt: React.KeyboardEvent) => {
+        if (evt.key === 'Escape') {
+            setShowSearchDropdown(false)
+            setMovieList([])
+        }
+    }
 
-    //TODO: Refactor comented code
-
-    const handleInput = () => {}
+    const handleInput = useDebounce(
+        (evt: React.ChangeEvent<HTMLInputElement>) => {
+            const inputValue = evt.target.value
+            if (inputValue.length > 1) {
+                const parsedValue = inputValue.toLowerCase()
+                setQuery(parsedValue)
+            }
+            if (inputValue.length === 0) {
+                setQuery('')
+                setMovieList([])
+                setShowSearchDropdown(false)
+            }
+        },
+        500
+    )
 
     const handleSubmit = () => {}
+
+    useEffect(() => {
+        if (!isFetchingMovies) {
+            setMovieList(moviesBySearchWord)
+            setShowSearchDropdown(moviesBySearchWord.length > 0)
+        }
+    }, [isFetchingMovies])
 
     return (
         <Stack
@@ -35,6 +59,7 @@ export const Search = () => {
             ml="50px"
             mt="15px"
             onSubmit={handleSubmit}
+            onKeyUp={handleEsckeyUp}
         >
             <Input
                 type="text"
@@ -48,6 +73,13 @@ export const Search = () => {
                     outline: 'none !important',
                 }}
             />
+
+            <SearchDropdown
+                movies={moviesList}
+                show={showSearchDropdown}
+                handleOnKeyUp={handleEsckeyUp}
+            />
+
             <Button
                 colorScheme="teal"
                 type="submit"
