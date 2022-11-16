@@ -17,16 +17,16 @@ export const Search = () => {
 
     const moviesBySearchWord: Movie[] = data?.results ?? []
 
-    const handleEsckeyUp = (e: React.KeyboardEvent) => {
-        if (e.key === 'Escape') {
+    const handleEsckeyUp = (evt: React.KeyboardEvent) => {
+        if (evt.key === 'Escape') {
             setShowSearchDropdown(false)
             setMovieList([])
         }
     }
 
     const handleInput = useDebounce(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const inputValue = e.target.value
+        (evt: React.ChangeEvent<HTMLInputElement>) => {
+            const inputValue = evt.target.value
             if (inputValue.length > 1) {
                 const parsedValue = inputValue.toLowerCase()
                 setQuery(parsedValue)

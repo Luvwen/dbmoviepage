@@ -11,7 +11,7 @@ export type Movie = {
     poster_path: string
     release_date: string
     title: string | undefined
-    namr: string | undefined
+    name: string | undefined
     video: boolean
     vore_average: number
     vote_count: number

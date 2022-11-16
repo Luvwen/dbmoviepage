@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent } from 'react'
 import { chakra, Text, theme } from '@chakra-ui/react'
 import { Movie } from '@/types'
 
@@ -14,6 +14,7 @@ export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
     show,
     handleOnKeyUp,
 }) => {
+    //Leave this as an option to create a load more button
     const shortenMovieList = (maxRange: number = 10) =>
         movies?.slice(1, maxRange)
 
