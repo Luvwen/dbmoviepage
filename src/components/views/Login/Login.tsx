@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
@@ -14,7 +15,8 @@ import {
 } from '@chakra-ui/react'
 
 import backgroundImage from '../../../assets/purple-background.jpg'
-import { useAuth } from '@/components/auth'
+import { startLoginWithEmailPassword } from '@/app/features/auth/thunks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 
 interface FormValues {
     email: string
@@ -22,8 +24,12 @@ interface FormValues {
 }
 
 export const Login: React.FC = () => {
-    const auth = useAuth()
-
+    const dispatch = useAppDispatch()
+    const { status, errorMessage } = useAppSelector((state) => state.auth)
+    const isCheckingAuthentication = useMemo(
+        () => status === 'checking',
+        [status]
+    )
     const initialValues: FormValues = {
         email: '',
         password: '',
@@ -56,7 +62,7 @@ export const Login: React.FC = () => {
     const onSubmit = () => {
         const email = values.email
         const password = values.password
-        auth?.loginWithEmailAndPassword(email, password)
+        dispatch(startLoginWithEmailPassword(email, password))
     }
     const { handleChange, handleSubmit, errors, values, touched, handleBlur } =
         useFormik({
@@ -112,8 +118,20 @@ export const Login: React.FC = () => {
                             )}
                         </Stack>
                     </Stack>
+                    {errorMessage &&
+                        errorMessage !== 'logout' &&
+                        errorMessage !== 'There is no user logged' && (
+                            <Text color="red" mt="10px" mb="-15px">
+                                {errorMessage}
+                            </Text>
+                        )}
                     <Stack alignItems="center" mt="25px">
-                        <Button colorScheme="teal" type="submit" width="100%">
+                        <Button
+                            disabled={isCheckingAuthentication}
+                            colorScheme="teal"
+                            type="submit"
+                            width="100%"
+                        >
                             Login
                         </Button>
                     </Stack>

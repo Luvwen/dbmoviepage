@@ -13,11 +13,18 @@ import {
     Text,
 } from '@chakra-ui/react'
 
-import { useAuth } from '@/components/auth'
 import backgroundImage from '../../../assets/purple-background.jpg'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import { startRegisterWithEmailAndPassword } from '@/app/features/auth/thunks'
+import { useMemo } from 'react'
 
 export const Register = () => {
-    const auth = useAuth()
+    const dispatch = useAppDispatch()
+    const { status, errorMessage } = useAppSelector((state) => state.auth)
+    const isCheckingAuthentication = useMemo(
+        () => status === 'checking',
+        [status]
+    )
     const initialValues = {
         username: '',
         password: '',
@@ -74,8 +81,10 @@ export const Register = () => {
     const onSubmit = () => {
         const email = values.email
         const password = values.password
-
-        auth?.registerWithEmailAndPassword(email, password)
+        const displayName = values.username
+        dispatch(
+            startRegisterWithEmailAndPassword(email, password, displayName)
+        )
     }
 
     const { handleSubmit, handleChange, values, errors, touched, handleBlur } =
@@ -84,7 +93,6 @@ export const Register = () => {
             validationSchema,
             onSubmit,
         })
-
     return (
         <Box width="100wv" height="100vh" backgroundImage={backgroundImage}>
             <Stack
@@ -174,9 +182,16 @@ export const Register = () => {
                             )}
                         </Stack>
                     </Stack>
+                    <Stack pt="15px" color="red">
+                        {errorMessage &&
+                            errorMessage !== 'There is no user logged' && (
+                                <Text>{errorMessage}</Text>
+                            )}
+                    </Stack>
                     <Stack>
                         <Button
-                            margin="25px auto 0"
+                            disabled={isCheckingAuthentication}
+                            margin="10px auto 0"
                             colorScheme={'teal'}
                             type="submit"
                             width="100%"
