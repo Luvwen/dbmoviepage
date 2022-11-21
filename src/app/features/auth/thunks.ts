@@ -22,9 +22,9 @@ export const startRegisterWithEmailAndPassword = (
     return async (dispatch: Dispatch) => {
         dispatch(checkingCredentials())
 
-        const { uid, ok, errorMessage } =
+        const { uid, approved, errorMessage } =
             await registerUserWithEmailAndPassword(email, password, displayName)
-        if (!ok) return dispatch(logout({ errorMessage }))
+        if (!approved) return dispatch(logout({ errorMessage }))
         dispatch(login({ uid, email, displayName }))
     }
 }
@@ -35,9 +35,9 @@ export const startLoginWithEmailPassword = (
 ) => {
     return async (dispatch: Dispatch) => {
         dispatch(checkingCredentials())
-        const { ok, uid, errorMessage, displayName } =
+        const { approved, uid, errorMessage, displayName } =
             await loginWithEmailPassword(email, password)
-        if (!ok) return dispatch(logout({ errorMessage }))
+        if (!approved) return dispatch(logout({ errorMessage }))
         dispatch(login({ uid, email, displayName }))
     }
 }

@@ -11,16 +11,16 @@ export const registerUserWithEmailAndPassword = async (
     displayName: string
 ) => {
     try {
-        const resp = await createUserWithEmailAndPassword(
+        const response = await createUserWithEmailAndPassword(
             FirebaseAuth,
             email,
             password
         )
-        const { uid } = resp.user
-        updateProfile(resp.user, { displayName })
+        const { uid } = response.user
+        updateProfile(response.user, { displayName })
 
         return {
-            ok: true,
+            approved: true,
             uid,
             email,
             displayName,
@@ -31,7 +31,7 @@ export const registerUserWithEmailAndPassword = async (
             errorMessage = error.message
         }
         return {
-            ok: false,
+            approved: false,
             errorMessage,
         }
     }
@@ -42,14 +42,14 @@ export const loginWithEmailPassword = async (
     password: string
 ) => {
     try {
-        const resp = await signInWithEmailAndPassword(
+        const response = await signInWithEmailAndPassword(
             FirebaseAuth,
             email,
             password
         )
-        const { uid, displayName } = resp.user
+        const { uid, displayName } = response.user
         return {
-            ok: true,
+            approved: true,
             uid,
             displayName,
         }
@@ -59,7 +59,7 @@ export const loginWithEmailPassword = async (
             errorMessage = error.message
         }
         return {
-            ok: false,
+            approved: false,
             errorMessage,
         }
     }

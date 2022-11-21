@@ -3,16 +3,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface Auth {
     status: string
-    uid: string | null
-    displayName: string | null
+    userId: string | null
+    userName: string | null
     email: string | null
     errorMessage: string | null
 }
 
 const initialState: Auth = {
     status: 'not-authenticated',
-    uid: null,
-    displayName: null,
+    userId: null,
+    userName: null,
     email: null,
     errorMessage: null,
 }
@@ -23,15 +23,15 @@ export const authSlice = createSlice({
     reducers: {
         login: (state, { payload }) => {
             state.status = 'authenticated'
-            state.uid = payload.uid
-            state.displayName = payload.displayName
+            state.userId = payload.uid
+            state.userName = payload.displayName
             state.email = payload.email
             state.errorMessage = null
         },
         logout: (state, { payload }) => {
             state.status = 'not-authenticated'
-            state.uid = null
-            state.displayName = null
+            state.userId = null
+            state.userName = null
             state.email = null
             state.errorMessage = payload?.errorMessage
         },

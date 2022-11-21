@@ -81,10 +81,8 @@ export const Register = () => {
     const onSubmit = () => {
         const email = values.email
         const password = values.password
-        const displayName = values.username
-        dispatch(
-            startRegisterWithEmailAndPassword(email, password, displayName)
-        )
+        const userName = values.username
+        dispatch(startRegisterWithEmailAndPassword(email, password, userName))
     }
 
     const { handleSubmit, handleChange, values, errors, touched, handleBlur } =
