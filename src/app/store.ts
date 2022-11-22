@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { moviesApi } from '../services/moviesData'
+import authSlice from './features/auth/authSlice'
 import favoritesSlice from './features/favorites/favoritesSlice'
 
 export const store = configureStore({
     reducer: {
         [moviesApi.reducerPath]: moviesApi.reducer,
         favorites: favoritesSlice,
+        auth: authSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(moviesApi.middleware),

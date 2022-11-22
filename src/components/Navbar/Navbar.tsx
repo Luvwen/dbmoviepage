@@ -19,7 +19,9 @@ import {
 } from '@chakra-ui/react'
 import movieImage from '../../assets/movie-image.png'
 import backgroundImage from '../../assets/purple-background.jpg'
-import { useAuth } from '../auth'
+
+import { useAppDispatch } from '@/app/hooks'
+import { startLogout } from '@/app/features/auth/thunks'
 
 export const Navbar = () => {
     const [yOffset, setYOffset] = useState(window.pageYOffset)
@@ -27,8 +29,8 @@ export const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
     const [searchInput, setSearchInput] = useState('')
-    const auth = useAuth()
 
+    const dispatch = useAppDispatch()
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
@@ -52,7 +54,7 @@ export const Navbar = () => {
     }
 
     const handleLogout = () => {
-        auth?.logout()
+        dispatch(startLogout())
     }
 
     const handleInputChange = (evt: FormEvent<HTMLInputElement>) => {
@@ -63,7 +65,6 @@ export const Navbar = () => {
         evt.preventDefault()
         setSearchInput('')
     }
-
     return (
         <Box as="header">
             <Stack
@@ -165,7 +166,7 @@ export const Navbar = () => {
                             setOpenMenu(!openMenu)
                         }}
                     >
-                        <Link as={NavLink} to="/login">
+                        <Link as={NavLink} onClick={handleLogout} to="/login">
                             Cerrar sesión
                         </Link>
                     </ListItem>
