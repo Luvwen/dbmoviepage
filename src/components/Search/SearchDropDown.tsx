@@ -1,12 +1,12 @@
-import { FunctionComponent } from 'react'
-import { chakra, Text, theme } from '@chakra-ui/react'
-import { Movie } from '@/types'
+import { FunctionComponent } from 'react';
+import { chakra, Text, theme } from '@chakra-ui/react';
+import { Movie } from '@/types';
 
 // TODO: Make the dropdown close when click outside.
 interface SearchDropdownProps {
-    movies: Movie[]
-    show: boolean
-    handleOnKeyUp: (event: React.KeyboardEvent) => void
+    movies: Movie[];
+    show: boolean;
+    handleOnKeyUp: (event: React.KeyboardEvent) => void;
 }
 
 export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
@@ -15,19 +15,18 @@ export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
     handleOnKeyUp,
 }) => {
     //Leave this as an option to create a load more button
-    const shortenMovieList = (maxRange: number = 10) =>
-        movies?.slice(1, maxRange)
+    const shortenMovieList = (maxRange = 10) => movies?.slice(1, maxRange);
 
     return (
         <Container
-            role={'menu'}
-            tabIndex={0}
             display={show ? 'inline-block' : 'none'}
             onKeyUp={handleOnKeyUp}
+            role={'menu'}
+            tabIndex={0}
         >
             {shortenMovieList &&
                 shortenMovieList().map((movie) => {
-                    const movieTitle = movie.title
+                    const movieTitle = movie.title;
                     return (
                         movieTitle && (
                             <MovieContainer
@@ -39,11 +38,11 @@ export const SearchDropdown: FunctionComponent<SearchDropdownProps> = ({
                                 <Text>{movie.media_type}</Text>
                             </MovieContainer>
                         )
-                    )
+                    );
                 })}
         </Container>
-    )
-}
+    );
+};
 
 const Container = chakra('ul', {
     shouldForwardProp: (prop) => !['show'].includes(prop),
@@ -64,7 +63,7 @@ const Container = chakra('ul', {
             borderRadius: '0px 0px 10px 10px',
         },
     },
-})
+});
 
 const MovieContainer = chakra('li', {
     baseStyle: {
@@ -76,4 +75,4 @@ const MovieContainer = chakra('li', {
             backgroundColor: theme.colors.gray[100],
         },
     },
-})
+});

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
     Box,
     Button,
@@ -8,46 +8,46 @@ import {
     MenuItem,
     MenuList,
     Stack,
-} from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     useGetMoviesByFilterQuery,
     useGetMoviesByTrendQuery,
-} from '../../../services/moviesData'
-import { Card } from '@/components/Card'
-import { Search } from '@/components/Search'
+} from '../../../services/moviesData';
+import { Card } from '@/components/Card';
+import { Search } from '@/components/Search';
 
 export interface Movie {
-    adult: boolean
-    backdrop_path: string
-    first_air_date?: string
-    genre_ids: number[]
-    id: number
-    media_type: string
-    name?: string
-    original_language: string
-    original_title: string
-    overview: string
-    popularity: number
-    poster_path: string
-    release_date: string
-    title?: string
-    video: boolean
-    vote_average: number
-    vote_count: number
+    adult: boolean;
+    backdrop_path: string;
+    first_air_date?: string;
+    genre_ids: number[];
+    id: number;
+    media_type: string;
+    name?: string;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title?: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
 }
 
 export const Main = () => {
-    const [trendingFilter, setTrendingFilter] = useState('day')
-    const [popularFilter, setPopularFilter] = useState('movie')
+    const [trendingFilter, setTrendingFilter] = useState('day');
+    const [popularFilter, setPopularFilter] = useState('movie');
 
-    const { data } = useGetMoviesByFilterQuery(popularFilter.toLowerCase())
-    const moviesByFilter = data?.results
+    const { data } = useGetMoviesByFilterQuery(popularFilter.toLowerCase());
+    const moviesByFilter = data?.results;
 
     const { data: movies } = useGetMoviesByTrendQuery(
         trendingFilter.toLowerCase()
-    )
-    const moviesByTrend = movies?.results
+    );
+    const moviesByTrend = movies?.results;
 
     return (
         <>
@@ -61,8 +61,8 @@ export const Main = () => {
                         {({ isOpen }) => (
                             <>
                                 <MenuButton
-                                    colorScheme="purple"
                                     as={Button}
+                                    colorScheme="purple"
                                     rightIcon={<ChevronDownIcon />}
                                 >
                                     {isOpen ? popularFilter : popularFilter}
@@ -70,14 +70,14 @@ export const Main = () => {
                                 <MenuList>
                                     <MenuItem
                                         onClick={() => {
-                                            setPopularFilter('Movie')
+                                            setPopularFilter('Movie');
                                         }}
                                     >
                                         Movie
                                     </MenuItem>
                                     <MenuItem
                                         onClick={() => {
-                                            setPopularFilter('Tv')
+                                            setPopularFilter('Tv');
                                         }}
                                     >
                                         Tv
@@ -89,15 +89,15 @@ export const Main = () => {
                 </Stack>
                 <Stack
                     as="article"
-                    spacing={3}
-                    pl={['15px']}
                     direction={['row']}
+                    maxHeight={['370px']}
                     overflowX={['scroll']}
                     overflowY={['hidden']}
-                    maxHeight={['370px']}
+                    pl={['15px']}
+                    spacing={3}
                 >
                     {moviesByFilter?.map((movie: Movie) => (
-                        <Card key={movie.id} data={movie} />
+                        <Card data={movie} key={movie.id} />
                     ))}
                 </Stack>
             </Box>
@@ -109,8 +109,8 @@ export const Main = () => {
                     {({ isOpen }) => (
                         <>
                             <MenuButton
-                                colorScheme="purple"
                                 as={Button}
+                                colorScheme="purple"
                                 rightIcon={<ChevronDownIcon />}
                             >
                                 {isOpen ? trendingFilter : trendingFilter}
@@ -118,14 +118,14 @@ export const Main = () => {
                             <MenuList>
                                 <MenuItem
                                     onClick={() => {
-                                        setTrendingFilter('Day')
+                                        setTrendingFilter('Day');
                                     }}
                                 >
                                     Day
                                 </MenuItem>
                                 <MenuItem
                                     onClick={() => {
-                                        setTrendingFilter('Week')
+                                        setTrendingFilter('Week');
                                     }}
                                 >
                                     Week
@@ -137,17 +137,17 @@ export const Main = () => {
             </Stack>
             <Stack
                 as="article"
-                spacing={3}
-                pl={['15px']}
                 direction={['row']}
+                maxHeight={['370px']}
                 overflowX={['scroll']}
                 overflowY={['hidden']}
-                maxHeight={['370px']}
+                pl={['15px']}
+                spacing={3}
             >
                 {moviesByTrend?.map((movie: Movie) => (
-                    <Card key={movie.id} data={movie} />
+                    <Card data={movie} key={movie.id} />
                 ))}
             </Stack>
         </>
-    )
-}
+    );
+};

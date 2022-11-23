@@ -2,8 +2,8 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
-} from 'firebase/auth'
-import { FirebaseAuth } from './firebase'
+} from 'firebase/auth';
+import { FirebaseAuth } from './firebase';
 
 export const registerUserWithEmailAndPassword = async (
     email: string,
@@ -15,27 +15,27 @@ export const registerUserWithEmailAndPassword = async (
             FirebaseAuth,
             email,
             password
-        )
-        const { uid } = response.user
-        updateProfile(response.user, { displayName })
+        );
+        const { uid } = response.user;
+        updateProfile(response.user, { displayName });
 
         return {
             approved: true,
             uid,
             email,
             displayName,
-        }
+        };
     } catch (error) {
-        let errorMessage
+        let errorMessage;
         if (error instanceof Error) {
-            errorMessage = error.message
+            errorMessage = error.message;
         }
         return {
             approved: false,
             errorMessage,
-        }
+        };
     }
-}
+};
 
 export const loginWithEmailPassword = async (
     email: string,
@@ -46,25 +46,25 @@ export const loginWithEmailPassword = async (
             FirebaseAuth,
             email,
             password
-        )
-        const { uid, displayName } = response.user
+        );
+        const { uid, displayName } = response.user;
         return {
             approved: true,
             uid,
             displayName,
-        }
+        };
     } catch (error) {
-        let errorMessage
+        let errorMessage;
         if (error instanceof Error) {
-            errorMessage = error.message
+            errorMessage = error.message;
         }
         return {
             approved: false,
             errorMessage,
-        }
+        };
     }
-}
+};
 
 export const logoutFirebase = async () => {
-    return await FirebaseAuth.signOut()
-}
+    return await FirebaseAuth.signOut();
+};

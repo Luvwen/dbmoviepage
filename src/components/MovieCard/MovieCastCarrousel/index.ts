@@ -1,1 +1,1 @@
-export * from './MovieCastCarrousel'
+export * from './MovieCastCarrousel';

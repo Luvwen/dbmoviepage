@@ -1,33 +1,33 @@
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
 
 interface Props {
-    vote: number
-    top?: string
-    left?: string
+    vote: number;
+    top?: string;
+    left?: string;
 }
 
 export const CircleProgress: React.FC<Props> = ({ vote, top, left }) => {
     return (
         <>
             <CircularProgress
-                position={['relative']}
-                value={vote}
-                top={top}
-                left={left}
                 color={vote > 75 ? 'blue.500' : 'yellow.400'}
+                left={left}
+                position={['relative']}
+                top={top}
+                value={vote}
             >
                 <CircularProgressLabel
-                    color={vote > 75 ? 'green.300' : 'orange.300'}
                     bg="blackAlpha.900"
                     borderRadius="50%"
-                    width="75%"
+                    color={vote > 75 ? 'green.300' : 'orange.300'}
+                    fontWeight="bolder"
                     height="75%"
                     lineHeight="10"
-                    fontWeight="bolder"
+                    width="75%"
                 >
                     {vote}%
                 </CircularProgressLabel>
             </CircularProgress>
         </>
-    )
-}
+    );
+};

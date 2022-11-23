@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 
 export const Footer = () => {
     return (
-        <Box position="absolute" bottom="0" left="0">
+        <Box bottom="0" left="0" position="absolute">
             Footer
         </Box>
-    )
-}
+    );
+};

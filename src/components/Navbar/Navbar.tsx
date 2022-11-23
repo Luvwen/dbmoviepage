@@ -1,12 +1,12 @@
-import { FormEvent, useEffect, useState } from 'react'
-import { Link as NavLink } from 'react-router-dom'
+import { FormEvent, useEffect, useState } from 'react';
+import { Link as NavLink } from 'react-router-dom';
 import {
     CloseIcon,
     HamburgerIcon,
     Icon,
     SearchIcon,
     StarIcon,
-} from '@chakra-ui/icons'
+} from '@chakra-ui/icons';
 import {
     Box,
     Image,
@@ -16,127 +16,127 @@ import {
     ListItem,
     Stack,
     UnorderedList,
-} from '@chakra-ui/react'
-import movieImage from '../../assets/movie-image.png'
-import backgroundImage from '../../assets/purple-background.jpg'
+} from '@chakra-ui/react';
+import movieImage from '../../assets/movie-image.png';
+import backgroundImage from '../../assets/purple-background.jpg';
 
-import { useAppDispatch } from '@/app/hooks'
-import { startLogout } from '@/app/features/auth/thunks'
+import { useAppDispatch } from '@/app/hooks';
+import { startLogout } from '@/app/features/auth/thunks';
 
 export const Navbar = () => {
-    const [yOffset, setYOffset] = useState(window.pageYOffset)
-    const [visible, setVisible] = useState(true)
-    const [openMenu, setOpenMenu] = useState(false)
-    const [openSearch, setOpenSearch] = useState(false)
-    const [searchInput, setSearchInput] = useState('')
+    const [yOffset, setYOffset] = useState(window.pageYOffset);
+    const [visible, setVisible] = useState(true);
+    const [openMenu, setOpenMenu] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    })
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    });
 
     function handleScroll() {
-        const currentYOffset = window.pageYOffset
-        const visible = yOffset > currentYOffset
+        const currentYOffset = window.pageYOffset;
+        const visible = yOffset > currentYOffset;
         if (currentYOffset >= 64) {
-            setYOffset(currentYOffset)
-            setVisible(visible)
+            setYOffset(currentYOffset);
+            setVisible(visible);
         }
     }
 
     const handleOpenMenu = () => {
-        setOpenMenu(!openMenu)
-    }
+        setOpenMenu(!openMenu);
+    };
 
     const handleOpenSearchBar = () => {
-        setOpenSearch(!openSearch)
-    }
+        setOpenSearch(!openSearch);
+    };
 
     const handleLogout = () => {
-        dispatch(startLogout())
-    }
+        dispatch(startLogout());
+    };
 
     const handleInputChange = (evt: FormEvent<HTMLInputElement>) => {
-        setSearchInput(evt.currentTarget.value)
-    }
+        setSearchInput(evt.currentTarget.value);
+    };
 
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault()
-        setSearchInput('')
-    }
+        evt.preventDefault();
+        setSearchInput('');
+    };
     return (
         <Box as="header">
             <Stack
-                as="nav"
-                height={['64px']}
-                direction={['row']}
-                justifyContent={['space-between']}
                 alignItems={['center']}
+                as="nav"
                 bg="purple.600"
+                direction={['row']}
+                height={['64px']}
+                justifyContent={['space-between']}
+                position="fixed"
+                spacing={0}
                 top={visible ? '0' : '-64'}
                 transition="top 0.4s"
-                position="fixed"
                 width={['100vw']}
                 zIndex={['1000']}
-                spacing={0}
             >
                 <Icon
                     as={openMenu ? CloseIcon : HamburgerIcon}
+                    color="white"
                     fontSize={openMenu ? 'xl' : '2xl'}
                     minW={['20%', '5%']}
-                    color="white"
                     onClick={handleOpenMenu}
                     zIndex="50"
                 ></Icon>
                 <Stack minW={['33%']}>
                     <Link as={NavLink} to="/main">
                         <Image
-                            src={movieImage}
                             alt="logo"
-                            width={['55px']}
                             height={['40px']}
                             m={['0 0 0 35px', '0 auto']}
+                            src={movieImage}
+                            width={['55px']}
                         />
                     </Link>
                 </Stack>
                 <Stack
-                    as={List}
-                    justifyContent={['space-around', 'center']}
-                    spacing={['', '10']}
-                    direction={['row']}
                     alignItems={['center']}
+                    as={List}
+                    direction={['row']}
+                    justifyContent={['space-around', 'center']}
                     minW={['20%', '10%']}
                     pr="5px"
+                    spacing={['', '10']}
                 >
                     <ListItem>
                         <Link as={NavLink} to="/favorites">
-                            <Icon as={StarIcon} fontSize="lg" color="white" />
+                            <Icon as={StarIcon} color="white" fontSize="lg" />
                         </Link>
                     </ListItem>
                     <ListItem onClick={handleOpenSearchBar}>
-                        <Icon as={SearchIcon} fontSize="lg" color="teal.400" />
+                        <Icon as={SearchIcon} color="teal.400" fontSize="lg" />
                     </ListItem>
                 </Stack>
             </Stack>
             <Stack
-                width={'100%'}
-                height={'100%'}
-                position={['absolute']}
-                top={'0px'}
-                left={openMenu ? '0' : '-500'}
                 backgroundImage={backgroundImage}
-                transition="left 0.4s"
-                zIndex="1000"
                 color="white"
+                height={'100%'}
+                left={openMenu ? '0' : '-500'}
+                position={['absolute']}
                 pt="15px"
+                top={'0px'}
+                transition="left 0.4s"
+                width={'100%'}
+                zIndex="1000"
             >
                 <UnorderedList listStyleType="none" spacing={5}>
                     <ListItem fontSize="xl">
                         <Link
                             as={NavLink}
-                            to="/main"
                             onClick={() => setOpenMenu(!openMenu)}
+                            to="/main"
                         >
                             Peliculas
                         </Link>
@@ -144,8 +144,8 @@ export const Navbar = () => {
                     <ListItem fontSize="xl">
                         <Link
                             as={NavLink}
-                            to="/main"
                             onClick={() => setOpenMenu(!openMenu)}
+                            to="/main"
                         >
                             Series
                         </Link>
@@ -153,8 +153,8 @@ export const Navbar = () => {
                     <ListItem fontSize="xl">
                         <Link
                             as={NavLink}
-                            to="/favorites"
                             onClick={() => setOpenMenu(!openMenu)}
+                            to="/favorites"
                         >
                             Favoritos
                         </Link>
@@ -162,8 +162,8 @@ export const Navbar = () => {
                     <ListItem
                         fontSize="xl"
                         onClick={() => {
-                            handleLogout
-                            setOpenMenu(!openMenu)
+                            handleLogout;
+                            setOpenMenu(!openMenu);
                         }}
                     >
                         <Link as={NavLink} onClick={handleLogout} to="/login">
@@ -173,26 +173,26 @@ export const Navbar = () => {
                 </UnorderedList>
             </Stack>
             <Stack
-                width={'100%'}
-                height={'50px'}
-                position={['absolute']}
-                top={openSearch ? '0' : '-20'}
-                left={'0'}
-                transition="top 0.4s"
-                zIndex="900"
+                alignItems="center"
                 bg="white"
                 direction="row"
-                alignItems="center"
+                height={'50px'}
                 justifyContent="center"
+                left={'0'}
+                position={['absolute']}
+                top={openSearch ? '0' : '-20'}
+                transition="top 0.4s"
+                width={'100%'}
+                zIndex="900"
             >
                 <Icon as={SearchIcon} />
-                <form style={{ width: '80%' }} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{ width: '80%' }}>
                     <Input
-                        placeholder="Buscar"
                         border="none"
-                        width="100%"
-                        value={searchInput}
                         onChange={handleInputChange}
+                        placeholder="Buscar"
+                        value={searchInput}
+                        width="100%"
                     />
                 </form>
                 <Icon
@@ -200,10 +200,10 @@ export const Navbar = () => {
                     color="gray.400"
                     fontSize="sm"
                     onClick={() => {
-                        setSearchInput('')
+                        setSearchInput('');
                     }}
                 />
             </Stack>
         </Box>
-    )
-}
+    );
+};
