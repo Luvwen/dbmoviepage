@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,9 +10,9 @@ const firebaseConfig = {
     storageBucket: import.meta.env.VITE_STORAGE_BUCKET_FIREBASE,
     messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID_FIREBASE,
     appId: import.meta.env.VITE_APP_ID_FIREBASE,
-}
+};
 
 // Initialize Firebase
-export const FirebaseApp = initializeApp(firebaseConfig)
-export const FirebaseDb = getFirestore(FirebaseApp)
-export const FirebaseAuth = getAuth(FirebaseApp)
+export const FirebaseApp = initializeApp(firebaseConfig);
+export const FirebaseDb = getFirestore(FirebaseApp);
+export const FirebaseAuth = getAuth(FirebaseApp);

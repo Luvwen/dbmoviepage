@@ -5,35 +5,35 @@ import {
     MenuItem,
     MenuList,
     Stack,
-} from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 export const MovieSelect = () => {
     return (
         <Stack
             direction="row"
             justifyContent={['', 'center']}
+            overflowX="scroll"
             spacing={0}
             width="100vw"
-            overflowX="scroll"
         >
             <Menu>
                 {({ isOpen }) => (
                     <>
                         <MenuButton
-                            borderRadius="0px"
-                            width="150px"
-                            minWidth="min-content"
-                            as={Button}
-                            rightIcon={<ChevronDownIcon />}
                             _after={{
-                                content: `""`,
+                                content: '""',
                                 position: 'absolute',
                                 width: '100%',
                                 height: '4px',
                                 top: '9',
                                 bg: 'teal.200',
                             }}
+                            as={Button}
+                            borderRadius="0px"
+                            minWidth="min-content"
+                            rightIcon={<ChevronDownIcon />}
+                            width="150px"
                         >
                             {isOpen ? 'Vista General' : 'Vista General'}
                         </MenuButton>
@@ -50,11 +50,11 @@ export const MovieSelect = () => {
                 {({ isOpen }) => (
                     <>
                         <MenuButton
+                            as={Button}
                             borderRadius="0px"
                             minWidth="min-content"
-                            width="150px"
-                            as={Button}
                             rightIcon={<ChevronDownIcon />}
+                            width="150px"
                         >
                             {isOpen ? 'Multimedia' : 'Multimedia'}
                         </MenuButton>
@@ -71,11 +71,11 @@ export const MovieSelect = () => {
                 {({ isOpen }) => (
                     <>
                         <MenuButton
+                            as={Button}
                             borderRadius="0px"
                             minWidth="min-content"
-                            width="150px"
-                            as={Button}
                             rightIcon={<ChevronDownIcon />}
+                            width="150px"
                         >
                             {isOpen ? 'Fandom' : 'Fandom'}
                         </MenuButton>
@@ -92,11 +92,11 @@ export const MovieSelect = () => {
                 {({ isOpen }) => (
                     <>
                         <MenuButton
+                            as={Button}
                             borderRadius="0px"
                             minWidth="min-content"
-                            width="150px"
-                            as={Button}
                             rightIcon={<ChevronDownIcon />}
+                            width="150px"
                         >
                             {isOpen ? 'Compartir' : 'Compartir'}
                         </MenuButton>
@@ -110,5 +110,5 @@ export const MovieSelect = () => {
                 )}
             </Menu>
         </Stack>
-    )
-}
+    );
+};

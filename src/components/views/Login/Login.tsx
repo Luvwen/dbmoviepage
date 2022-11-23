@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
+import { useMemo } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 import {
     Box,
@@ -12,28 +12,28 @@ import {
     Link,
     Stack,
     Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import backgroundImage from '../../../assets/purple-background.jpg'
-import { startLoginWithEmailPassword } from '@/app/features/auth/thunks'
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import backgroundImage from '../../../assets/purple-background.jpg';
+import { startLoginWithEmailPassword } from '@/app/features/auth/thunks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 interface FormValues {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 export const Login: React.FC = () => {
-    const dispatch = useAppDispatch()
-    const { status, errorMessage } = useAppSelector((state) => state.auth)
+    const dispatch = useAppDispatch();
+    const { status, errorMessage } = useAppSelector((state) => state.auth);
     const isCheckingAuthentication = useMemo(
         () => status === 'checking',
         [status]
-    )
+    );
     const initialValues: FormValues = {
         email: '',
         password: '',
-    }
+    };
 
     const validationErrors = {
         email: {
@@ -45,7 +45,7 @@ export const Login: React.FC = () => {
             minLength: 'Mínimo 6 caracteres',
             maxLength: 'Máximo 20 caracteres',
         },
-    }
+    };
 
     const validationSchema = yup.object().shape({
         email: yup
@@ -57,47 +57,47 @@ export const Login: React.FC = () => {
             .required(validationErrors.password.required)
             .min(6, validationErrors.password.minLength)
             .max(20, validationErrors.password.maxLength),
-    })
+    });
 
     const onSubmit = () => {
-        const email = values.email
-        const password = values.password
-        dispatch(startLoginWithEmailPassword(email, password))
-    }
+        const email = values.email;
+        const password = values.password;
+        dispatch(startLoginWithEmailPassword(email, password));
+    };
     const { handleChange, handleSubmit, errors, values, touched, handleBlur } =
         useFormik({
             initialValues,
             validationSchema,
             onSubmit,
-        })
+        });
 
     return (
-        <Box width="100wv" height="100vh" backgroundImage={backgroundImage}>
+        <Box backgroundImage={backgroundImage} height="100vh" width="100wv">
             <Stack
+                alignItems="center"
                 as="section"
-                maxWidth={['80vw']}
+                color="white"
                 height={['100vh']}
                 m={['0 auto']}
-                alignItems="center"
-                color="white"
-                spacing={5}
+                maxWidth={['80vw']}
                 pt={['100px']}
+                spacing={5}
             >
                 <Heading fontSize={['2xl']} mb={['20px']}>
                     Accede a tu cuenta
                 </Heading>
-                <form style={{ width: '100%' }} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                     <Stack spacing={3}>
                         <Stack>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <Input
-                                type="email"
-                                name="email"
                                 id="email"
-                                value={values.email}
-                                onChange={handleChange}
+                                name="email"
                                 onBlur={handleBlur}
+                                onChange={handleChange}
                                 placeholder="username@example.com"
+                                type="email"
+                                value={values.email}
                             />
                             {errors.email && touched.email && (
                                 <Text color="red">{errors.email}</Text>
@@ -106,12 +106,12 @@ export const Login: React.FC = () => {
                         <Stack>
                             <FormLabel htmlFor="password">Contraseña</FormLabel>
                             <Input
-                                type="password"
-                                name="password"
                                 id="password"
-                                value={values.password}
-                                onChange={handleChange}
+                                name="password"
                                 onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="password"
+                                value={values.password}
                             />
                             {errors.password && touched.password && (
                                 <Text color="red">{errors.password}</Text>
@@ -121,14 +121,14 @@ export const Login: React.FC = () => {
                     {errorMessage &&
                         errorMessage !== 'logout' &&
                         errorMessage !== 'There is no user logged' && (
-                            <Text color="red" mt="10px" mb="-15px">
+                            <Text color="red" mb="-15px" mt="10px">
                                 {errorMessage}
                             </Text>
                         )}
                     <Stack alignItems="center" mt="25px">
                         <Button
-                            disabled={isCheckingAuthentication}
                             colorScheme="teal"
+                            disabled={isCheckingAuthentication}
                             type="submit"
                             width="100%"
                         >
@@ -138,11 +138,11 @@ export const Login: React.FC = () => {
                 </form>
                 <Stack as="article" direction={['row']}>
                     <Text>¿Todavía no estas registrado?</Text>
-                    <Link color="blue.500" as={RouterLink} to="/register">
+                    <Link as={RouterLink} color="blue.500" to="/register">
                         Registro
                     </Link>
                 </Stack>
             </Stack>
         </Box>
-    )
-}
+    );
+};

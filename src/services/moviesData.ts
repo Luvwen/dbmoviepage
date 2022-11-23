@@ -1,11 +1,11 @@
 // Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Define a service using a base URL and expected endpoints
 // TODO: Create an .env folder to store the api key from here and the one in firebase.js file
 
-const ENDPOINT = import.meta.env.VITE_ENDPOINT
-const API_KEY = import.meta.env.VITE_API_KEY_TMDB
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
+const API_KEY = import.meta.env.VITE_API_KEY_TMDB;
 
 // Here are the different endpoints and their respective methods.
 export const moviesApi = createApi({
@@ -30,7 +30,7 @@ export const moviesApi = createApi({
                 `${ENDPOINT}movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=release_dates,credits,external_ids,keywords`,
         }),
     }),
-})
+});
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
@@ -40,4 +40,4 @@ export const {
     useGetMoviesByTrendQuery,
     useGetMoviesBySearchWordQuery,
     useGetMovieByIdQuery,
-} = moviesApi
+} = moviesApi;

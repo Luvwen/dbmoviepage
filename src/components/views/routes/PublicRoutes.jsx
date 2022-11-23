@@ -1,6 +1,6 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { Login } from '../Login'
-import { Register } from '../Register'
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Login } from '../Login';
+import { Register } from '../Register';
 
 export const PublicRoutes = () => {
     return (
@@ -10,5 +10,5 @@ export const PublicRoutes = () => {
 
             <Route path="/*" element={<Navigate to="/auth/login" />} />
         </Routes>
-    )
-}
+    );
+};

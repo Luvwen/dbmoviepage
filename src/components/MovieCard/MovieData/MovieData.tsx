@@ -1,14 +1,14 @@
-import { Heading, Stack, Text } from '@chakra-ui/react'
+import { Heading, Stack, Text } from '@chakra-ui/react';
 
-import { MovieInfo } from '../MovieCard'
+import { MovieInfo } from '../MovieCard';
 
 interface MovieDataProps {
-    movieInfo: MovieInfo
+    movieInfo: MovieInfo;
 }
 
 export const MovieData = ({ movieInfo }: MovieDataProps): JSX.Element => {
     return (
-        <Stack as="article" className="movie-data" pl="15px" mt="25px">
+        <Stack as="article" className="movie-data" mt="25px" pl="15px">
             <Heading as="h4" fontSize={['lg']}>
                 Movie information
             </Heading>
@@ -34,5 +34,5 @@ export const MovieData = ({ movieInfo }: MovieDataProps): JSX.Element => {
                 </Text>
             </Stack>
         </Stack>
-    )
-}
+    );
+};

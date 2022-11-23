@@ -1,15 +1,15 @@
-import { Box, Spinner } from '@chakra-ui/react'
+import { Box, Spinner } from '@chakra-ui/react';
 
 export const CheckingAuth = () => {
     return (
         <Box
-            width="100vw"
-            height="100vh"
-            display="flex"
             alignItems="center"
+            display="flex"
+            height="100vh"
             justifyContent="center"
+            width="100vw"
         >
             <Spinner size="xl" />
         </Box>
-    )
-}
+    );
+};
