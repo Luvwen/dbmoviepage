@@ -85,9 +85,10 @@ export const Card: React.FC<CardProps> = ({ data }) => {
     }, []);
 
     return (
-        <Stack position="relative">
+        <Stack maxHeight="370px" position="relative">
             <Text
                 color="red"
+                cursor="pointer"
                 fontSize="20px"
                 left="120"
                 onClick={() => handleAddFavorite()}
