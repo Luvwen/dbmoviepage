@@ -76,7 +76,7 @@ export const Navbar = () => {
                 justifyContent={['space-between']}
                 position="fixed"
                 spacing={0}
-                top={visible ? '0' : '-64'}
+                top={[visible ? '0' : '-64', '0']}
                 transition="top 0.4s"
                 width={['100vw']}
                 zIndex={['1000']}
@@ -84,6 +84,7 @@ export const Navbar = () => {
                 <Icon
                     as={openMenu ? CloseIcon : HamburgerIcon}
                     color="white"
+                    cursor="pointer"
                     fontSize={openMenu ? 'xl' : '2xl'}
                     minW={['20%', '5%']}
                     onClick={handleOpenMenu}
@@ -115,7 +116,12 @@ export const Navbar = () => {
                         </Link>
                     </ListItem>
                     <ListItem onClick={handleOpenSearchBar}>
-                        <Icon as={SearchIcon} color="teal.400" fontSize="lg" />
+                        <Icon
+                            as={SearchIcon}
+                            color="teal.400"
+                            cursor="pointer"
+                            fontSize="lg"
+                        />
                     </ListItem>
                 </Stack>
             </Stack>
@@ -123,12 +129,12 @@ export const Navbar = () => {
                 backgroundImage={backgroundImage}
                 color="white"
                 height={'100%'}
-                left={openMenu ? '0' : '-500'}
-                position={['absolute']}
+                left={[openMenu ? '0' : '-500', openMenu ? '0' : '-500']}
+                position={['absolute', 'fixed']}
                 pt="15px"
-                top={'0px'}
+                top={['0px', '64px']}
                 transition="left 0.4s"
-                width={'100%'}
+                width={['100%', '20%']}
                 zIndex="1000"
             >
                 <UnorderedList listStyleType="none" spacing={5}>

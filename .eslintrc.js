@@ -22,5 +22,6 @@ module.exports = {
         quotes: ['error', 'single'],
         semi: ['warn', 'always'],
         'react/jsx-sort-props': ['error'],
+        'react/prop-types': 'off',
     },
 };
