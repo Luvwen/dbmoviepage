@@ -90,21 +90,32 @@ export const Register = () => {
             onSubmit,
         });
     return (
-        <Box backgroundImage={backgroundImage} height="100vh" width="100wv">
+        <Box
+            backgroundImage={backgroundImage}
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            height="100vh"
+            width="100wv"
+        >
             <Stack
                 alignItems="center"
                 as="section"
                 color="white"
                 m={['0 auto']}
-                maxWidth={['80vw']}
+                maxWidth={['80vw', '30vw']}
             >
-                <Heading color="white" fontSize={['xl']} mt={['50px']}>
+                <Heading color="white" fontSize={['xl', '5xl']} mt={['100px']}>
                     Crear una cuenta
                 </Heading>
                 <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                    <Stack spacing={['2']}>
-                        <Stack mt={['10px']}>
-                            <FormLabel htmlFor="username">Nombre *</FormLabel>
+                    <Stack spacing={['2', '5']}>
+                        <Stack mt={['10px', '50px']}>
+                            <FormLabel
+                                fontSize={['md', 'xl']}
+                                htmlFor="username"
+                            >
+                                Nombre *
+                            </FormLabel>
                             <Input
                                 color={
                                     errors.username && touched.username
@@ -119,11 +130,16 @@ export const Register = () => {
                                 value={values.username}
                             />
                             {errors.username && touched.username && (
-                                <Text color="red">{errors.username}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.username}
+                                </Text>
                             )}
                         </Stack>
                         <Stack>
-                            <FormLabel htmlFor="password">
+                            <FormLabel
+                                fontSize={['md', 'xl']}
+                                htmlFor="password"
+                            >
                                 Contraseña *
                             </FormLabel>
                             <Input
@@ -139,11 +155,15 @@ export const Register = () => {
                                 value={values.password}
                             />
                             {errors.password && touched.password && (
-                                <Text color="red">{errors.password}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.password}
+                                </Text>
                             )}
                         </Stack>
                         <Stack>
-                            <FormLabel htmlFor="email">Email *</FormLabel>
+                            <FormLabel fontSize={['md', 'xl']} htmlFor="email">
+                                Email *
+                            </FormLabel>
                             <Input
                                 color={
                                     errors.email && touched.email
@@ -158,11 +178,15 @@ export const Register = () => {
                                 value={values.email}
                             />
                             {errors.email && touched.email && (
-                                <Text color="red">{errors.email}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.email}
+                                </Text>
                             )}
                         </Stack>
                         <Stack>
-                            <FormLabel htmlFor="age">Edad *</FormLabel>
+                            <FormLabel fontSize={['md', 'xl']} htmlFor="age">
+                                Edad *
+                            </FormLabel>
                             <Input
                                 color={
                                     errors.age && touched.age ? 'red' : 'white'
@@ -174,21 +198,27 @@ export const Register = () => {
                                 value={values.age}
                             />
                             {errors.age && touched.age && (
-                                <Text color="red">{errors.age}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.age}
+                                </Text>
                             )}
                         </Stack>
                     </Stack>
                     <Stack color="red" pt="15px">
                         {errorMessage &&
                             errorMessage !== 'There is no user logged' && (
-                                <Text>{errorMessage}</Text>
+                                <Text fontSize={['md', 'xl']}>
+                                    {errorMessage}
+                                </Text>
                             )}
                     </Stack>
                     <Stack>
                         <Button
                             colorScheme={'teal'}
                             disabled={isCheckingAuthentication}
-                            margin="10px auto 0"
+                            fontSize={['md', 'xl']}
+                            margin={['10px auto 0', '10px auto 10px']}
+                            p={['20px']}
                             type="submit"
                             width="100%"
                         >
@@ -197,8 +227,13 @@ export const Register = () => {
                     </Stack>
                 </form>
                 <Stack as="article" direction={['row']}>
-                    <Text>¿Ya estás registrado?</Text>
-                    <Link as={RouterLink} color="blue.500" to="/login">
+                    <Text fontSize={['md', 'xl']}>¿Ya estás registrado?</Text>
+                    <Link
+                        as={RouterLink}
+                        color="blue.500"
+                        fontSize={['md', 'xl']}
+                        to="/login"
+                    >
                         Login
                     </Link>
                 </Stack>

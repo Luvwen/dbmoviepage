@@ -72,24 +72,32 @@ export const Login: React.FC = () => {
         });
 
     return (
-        <Box backgroundImage={backgroundImage} height="100vh" width="100wv">
+        <Box
+            backgroundImage={backgroundImage}
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            height="100vh"
+            width="100wv"
+        >
             <Stack
                 alignItems="center"
                 as="section"
                 color="white"
                 height={['100vh']}
                 m={['0 auto']}
-                maxWidth={['80vw']}
+                maxWidth={['80vw', '30vw']}
                 pt={['100px']}
                 spacing={5}
             >
-                <Heading fontSize={['2xl']} mb={['20px']}>
+                <Heading fontSize={['2xl', '5xl']} mb={['20px']}>
                     Accede a tu cuenta
                 </Heading>
                 <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                    <Stack spacing={3}>
+                    <Stack spacing="5">
                         <Stack>
-                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormLabel fontSize={['md', 'xl']} htmlFor="email">
+                                Email
+                            </FormLabel>
                             <Input
                                 id="email"
                                 name="email"
@@ -100,11 +108,18 @@ export const Login: React.FC = () => {
                                 value={values.email}
                             />
                             {errors.email && touched.email && (
-                                <Text color="red">{errors.email}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.email}
+                                </Text>
                             )}
                         </Stack>
                         <Stack>
-                            <FormLabel htmlFor="password">Contraseña</FormLabel>
+                            <FormLabel
+                                fontSize={['md', 'xl']}
+                                htmlFor="password"
+                            >
+                                Contraseña
+                            </FormLabel>
                             <Input
                                 id="password"
                                 name="password"
@@ -114,14 +129,21 @@ export const Login: React.FC = () => {
                                 value={values.password}
                             />
                             {errors.password && touched.password && (
-                                <Text color="red">{errors.password}</Text>
+                                <Text color="red" fontSize={['md', 'xl']}>
+                                    {errors.password}
+                                </Text>
                             )}
                         </Stack>
                     </Stack>
                     {errorMessage &&
                         errorMessage !== 'logout' &&
                         errorMessage !== 'There is no user logged' && (
-                            <Text color="red" mb="-15px" mt="10px">
+                            <Text
+                                color="red"
+                                fontSize={['md', 'xl']}
+                                mb="-15px"
+                                mt="10px"
+                            >
                                 {errorMessage}
                             </Text>
                         )}
@@ -129,6 +151,8 @@ export const Login: React.FC = () => {
                         <Button
                             colorScheme="teal"
                             disabled={isCheckingAuthentication}
+                            fontSize={['md', 'xl']}
+                            p={['20px']}
                             type="submit"
                             width="100%"
                         >
@@ -137,8 +161,15 @@ export const Login: React.FC = () => {
                     </Stack>
                 </form>
                 <Stack as="article" direction={['row']}>
-                    <Text>¿Todavía no estas registrado?</Text>
-                    <Link as={RouterLink} color="blue.500" to="/register">
+                    <Text fontSize={['md', 'xl']}>
+                        ¿Todavía no estas registrado?
+                    </Text>
+                    <Link
+                        as={RouterLink}
+                        color="blue.500"
+                        fontSize={['md', 'xl']}
+                        to="/register"
+                    >
                         Registro
                     </Link>
                 </Stack>
