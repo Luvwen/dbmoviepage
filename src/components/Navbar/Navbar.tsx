@@ -15,12 +15,13 @@ import {
     List,
     ListItem,
     Stack,
+    Text,
     UnorderedList,
 } from '@chakra-ui/react';
 import movieImage from '../../assets/movie-image.png';
 import backgroundImage from '../../assets/purple-background.jpg';
 
-import { useAppDispatch } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { startLogout } from '@/app/features/auth/thunks';
 
 export const Navbar = () => {
@@ -31,6 +32,12 @@ export const Navbar = () => {
     const [searchInput, setSearchInput] = useState('');
 
     const dispatch = useAppDispatch();
+    const { userName } = useAppSelector((state) => state.auth);
+    let uppercaseName;
+    if (userName) {
+        uppercaseName = userName?.charAt(0).toUpperCase() + userName?.slice(1);
+    }
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -106,30 +113,71 @@ export const Navbar = () => {
                     as={List}
                     direction={['row']}
                     justifyContent={['space-around', 'center']}
-                    minW={['20%', '10%']}
+                    minW={['20%', '20%']}
                     pr="5px"
                     spacing={['', '10']}
                 >
+                    <ListItem display={['none', 'contents']}>
+                        <Text color="whitesmoke">{uppercaseName}</Text>
+                    </ListItem>
                     <ListItem>
-                        <Link as={NavLink} to="/favorites">
-                            <Icon as={StarIcon} color="white" fontSize="lg" />
+                        <Link
+                            _hover={{ textDecoration: 'none' }}
+                            alignItems="center"
+                            as={NavLink}
+                            display="flex"
+                            justifyContent="space-between"
+                            to="/favorites"
+                        >
+                            <Icon
+                                as={StarIcon}
+                                color="white"
+                                fontSize="lg"
+                                mr="5px"
+                            />
+                            <Text
+                                _hover={{
+                                    color: 'blue.300',
+                                }}
+                                color="whitesmoke"
+                                display={['none', 'contents']}
+                            >
+                                Favorites
+                            </Text>
                         </Link>
                     </ListItem>
-                    <ListItem onClick={handleOpenSearchBar}>
+                    <ListItem
+                        alignItems={['center']}
+                        display={['flex']}
+                        justifyContent={['space-between']}
+                        onClick={handleOpenSearchBar}
+                    >
                         <Icon
                             as={SearchIcon}
                             color="teal.400"
                             cursor="pointer"
                             fontSize="lg"
+                            mr="7px"
                         />
+                        <Text
+                            _hover={{
+                                color: 'blue.300',
+                                cursor: 'pointer',
+                            }}
+                            color="whitesmoke"
+                            display={['none', 'contents']}
+                        >
+                            Buscar
+                        </Text>
                     </ListItem>
                 </Stack>
             </Stack>
             <Stack
                 backgroundImage={backgroundImage}
                 color="white"
-                height={'100%'}
+                height={['100vh']}
                 left={[openMenu ? '0' : '-500', openMenu ? '0' : '-500']}
+                minHeight={['100vh']}
                 position={['absolute', 'fixed']}
                 pt="15px"
                 top={['0px', '64px']}

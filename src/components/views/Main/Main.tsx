@@ -130,7 +130,7 @@ export const Main = () => {
                     minHeight={['450px']}
                     overflowX={['scroll']}
                     overflowY={['hidden']}
-                    pl={['15px']}
+                    pl={['0', '15px']}
                     ref={popularCarrousel}
                     scrollBehavior="smooth"
                     spacing={3}
@@ -143,6 +143,7 @@ export const Main = () => {
                     <Button
                         borderRadius="50%"
                         colorScheme="red"
+                        display={['none', 'flex']}
                         height="40px"
                         onClick={() => handleSlideOne('left')}
                         position="absolute"
@@ -161,6 +162,7 @@ export const Main = () => {
                     <Button
                         borderRadius="50%"
                         colorScheme="red"
+                        display={['none', 'flex']}
                         height="40px"
                         onClick={() => handleSlideOne('right')}
                         position="absolute"
@@ -213,7 +215,7 @@ export const Main = () => {
                 minHeight={['450px']}
                 overflowX={['scroll']}
                 overflowY={['hidden']}
-                pl={['15px']}
+                pl={['0', '15px']}
                 ref={trendCarrousel}
                 scrollBehavior="smooth"
                 spacing={3}
@@ -226,6 +228,7 @@ export const Main = () => {
                 <Button
                     borderRadius="50%"
                     colorScheme="red"
+                    display={['none', 'flex']}
                     height="40px"
                     onClick={() => handleSlideTwo('left')}
                     position="absolute"
@@ -240,6 +243,7 @@ export const Main = () => {
                 <Button
                     borderRadius="50%"
                     colorScheme="red"
+                    display={['none', 'flex']}
                     height="40px"
                     onClick={() => handleSlideTwo('right')}
                     position="absolute"
