@@ -112,7 +112,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
                     <CircleProgress
                         left={'3'}
                         top={'-25'}
-                        vote={parseInt(data?.vote_average.toFixed(1)) * 10}
+                        vote={parseInt((data?.vote_average * 10).toFixed(0))}
                     />
                 </Link>
             </Stack>
