@@ -10,7 +10,9 @@ export const CircleProgress: React.FC<Props> = ({ vote, top, left }) => {
     return (
         <>
             <CircularProgress
+                as="div"
                 color={vote > 75 ? 'blue.500' : 'yellow.400'}
+                data-testid="circle div"
                 left={left}
                 position={['relative']}
                 top={top}

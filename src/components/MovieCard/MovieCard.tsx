@@ -91,7 +91,6 @@ export const MovieCard = () => {
         status: data?.status,
         original_language: data?.original_language,
     };
-
     return (
         <Box as="section" className="wrapper-movie-card" mt="64px">
             <MovieSelect />
@@ -106,6 +105,7 @@ export const MovieCard = () => {
                             top="0"
                             width="100%"
                         />
+
                         <Image
                             backgroundPosition="calc((((100vw / 2.222222) - 20px) / 1.5) / 2) 0"
                             backgroundRepeat="no-repeat"
@@ -115,19 +115,26 @@ export const MovieCard = () => {
                             pl="45px"
                             src={`${pictureUrl}`}
                             width="100%"
-                        ></Image>
-                        <Image
-                            alt="poster"
-                            borderRadius="5px"
-                            height="calc((100vw / 2.222222) - 40px)"
-                            left="5"
-                            minHeight="calc((100vw / 2.222222) - 40px)"
-                            minWidth="calc(((100vw / 2.222222) - 40px) / 1.5)"
-                            position="absolute"
-                            src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
-                            top="5"
-                            width="calc(((100vw / 2.222222) - 40px) / 1.5)"
                         />
+                        <Link
+                            cursor="pointer"
+                            href="https://www.dreamworks.com/movies/puss-in-boots-the-last-wish"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <Image
+                                alt="poster"
+                                borderRadius="5px"
+                                height="calc((100vw / 2.222222) - 40px)"
+                                left="5"
+                                minHeight="calc((100vw / 2.222222) - 40px)"
+                                minWidth="calc(((100vw / 2.222222) - 40px) / 1.5)"
+                                position="absolute"
+                                src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+                                top="5"
+                                width="calc(((100vw / 2.222222) - 40px) / 1.5)"
+                            />
+                        </Link>
                     </Box>
                 </Stack>
                 <Stack as="article">
@@ -195,23 +202,15 @@ export const MovieCard = () => {
             <Stack
                 as="article"
                 className="movie-carrousel"
+                ml={['0', '200px']}
                 mt="15px"
-                overflowX={['scroll']}
                 pb="15"
             >
-                <Heading fontSize={['xl']} pl="15px">
+                <Heading fontSize={['xl', '2xl']} pb={['0', '15px']} pl="15px">
                     Movie cast
                 </Heading>
                 <MovieCastCarrousel data={data} />
             </Stack>
-            <Heading
-                as="h3"
-                className="casting-link"
-                fontSize={['xl']}
-                pl={['15px']}
-            >
-                Reparto y equipo completo (Link)
-            </Heading>
             <Divider
                 bg="gray.200"
                 height={['1px']}
@@ -220,21 +219,25 @@ export const MovieCard = () => {
             />
             {/* <Heading as="h3" className="actual-season">
                 Temporada actual (Link)
-            </Heading>
-            <article className='season-card'>
-        <div>
-          <h2>Temporada 24</h2>
-          <h5>2022 | 8 episodios</h5>
-          <p>
-            La temporada 24 de Ley y Orden: Unidad de Víctimas Especiales se
-            estrenó el 22 de septiembre de 2022.
-          </p>
-        </div>
-      </article>
-      <h3 className='all-seasons'>Ver todas las temporadas (Link)</h3> */}
+                </Heading>
+                <article className='season-card'>
+                <div>
+                <h2>Temporada 24</h2>
+                <h5>2022 | 8 episodios</h5>
+                <p>
+                La temporada 24 de Ley y Orden: Unidad de Víctimas Especiales se
+                estrenó el 22 de septiembre de 2022.
+                </p>
+                </div>
+                </article>
+            <h3 className='all-seasons'>Ver todas las temporadas (Link)</h3> */}
+
+            {/* Refactor this into a reusable component */}
+
             <Stack
                 as="article"
                 direction={['row']}
+                ml={['0', '200px']}
                 mt={['15px']}
                 pl={['15px']}
                 spacing={['3']}
@@ -312,8 +315,16 @@ export const MovieCard = () => {
                     </Link>
                 )}
             </Stack>
-            <MovieData movieInfo={movieInfo} />
-            <Stack as="article" mt="25px" pl="15px" width="100vw">
+            <Box ml={['0', '200px']}>
+                <MovieData movieInfo={movieInfo} />
+            </Box>
+            <Stack
+                as="article"
+                ml={['0', '200px']}
+                mt="25px"
+                pl="15px"
+                width="100vw"
+            >
                 <Heading as="h3" fontSize="lg">
                     Palabras clave
                 </Heading>
