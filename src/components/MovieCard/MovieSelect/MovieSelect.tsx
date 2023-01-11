@@ -13,7 +13,7 @@ export const MovieSelect = () => {
         <Stack
             direction="row"
             justifyContent={['', 'center']}
-            overflowX="scroll"
+            overflowX={['scroll', 'hidden']}
             spacing={0}
             width="100vw"
         >

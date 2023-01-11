@@ -23,6 +23,7 @@ export const MovieCastCarrousel = ({ data }: DataApi) => {
             className="carrousel"
             direction={['row']}
             maxHeight="250px"
+            maxW={['100%', '70%']}
             overflowX={['scroll']}
             pb="15px"
             pl="15px"
@@ -56,7 +57,7 @@ export const MovieCastCarrousel = ({ data }: DataApi) => {
                                 width="100%"
                             ></Image>
                         </Link>
-                        <Stack p="5px" spacing={['1']}>
+                        <Stack overflow="hidden" p="5px" spacing={['1']}>
                             <Heading fontSize="md">
                                 {actor?.original_name}
                             </Heading>
